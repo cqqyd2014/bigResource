@@ -1,7 +1,7 @@
 <map version="1.0.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1543508912422" ID="ID_861451179" MODIFIED="1543508946569" TEXT="&#x6570;&#x636e;&#x5173;&#x7cfb;&#x53ef;&#x89c6;&#x5316;&#x7cfb;&#x7edf;">
-<node CREATED="1543508947397" ID="ID_967379690" MODIFIED="1543508957871" POSITION="right" TEXT="&#x6570;&#x636e;&#x91c7;&#x96c6;&#x5b58;&#x5165;HBASE">
+<node CREATED="1543508947397" ID="ID_967379690" MODIFIED="1543655462702" POSITION="right" TEXT="&#x6570;&#x636e;&#x91c7;&#x96c6;&#x5bfc;&#x5165;HBASE">
 <node CREATED="1543570172658" ID="ID_409767727" MODIFIED="1543570181400" TEXT="&#x5bfc;&#x5165;&#x6846;&#x67b6;&#x8bbe;&#x8ba1;">
 <node CREATED="1543570208070" ID="ID_1497141179" MODIFIED="1543570223857" TEXT="&#x6838;&#x5fc3;&#x6a21;&#x5757;">
 <node CREATED="1543570223859" ID="ID_897139506" MODIFIED="1543627073786" TEXT="&#x5b58;&#x50a8;&#x6a21;&#x5f0f;&#xff08;&#x5217;&#xff09;&#xff0c;&#x4e0d;&#x540c;&#x6570;&#x636e;&#x7684;rowkey&#x548c;&#x6570;&#x636e;&#xff0c;cf1&#x662f;&#x6c47;&#x603b;&#x6570;&#x636e;&#xff0c;cf2&#x662f;&#x660e;&#x7ec6;&#x6570;&#x636e;"/>
