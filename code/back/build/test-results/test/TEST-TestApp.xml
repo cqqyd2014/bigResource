@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TestApp" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-12-03T11:03:11" hostname="DESKTOP-JP469U1" time="0.005">
+<testsuite name="TestApp" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-12-03T16:58:58" hostname="DESKTOP-JP469U1" time="0.005">
   <properties/>
   <testcase name="testSomeLibraryMethod" classname="TestApp" time="0.005"/>
-  <system-out><![CDATA[sdfsdf
+  <system-out><![CDATA[3434
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
