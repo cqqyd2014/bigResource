@@ -1,0 +1,7 @@
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+mainClassName = 'cn.gov.cqaudit.big_reource.etl.import_hbase.console.ConsoleApp'
