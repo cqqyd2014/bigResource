@@ -66,7 +66,7 @@ set CMD_LINE_ARGS=%*
 set CLASSPATH=%APP_HOME%\lib\import_hbase_console-0.0.1-SNAPSHOT.jar
 
 @rem Execute import_hbase_console
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %IMPORT_HBASE_CONSOLE_OPTS%  -classpath "%CLASSPATH%" cn.gov.cqaudit.big_reource.etl.import_hbase.console.ConsoleApp %CMD_LINE_ARGS%
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %IMPORT_HBASE_CONSOLE_OPTS%  -classpath "%CLASSPATH%" cn.gov.cqaudit.big_resource.etl.import_hbase.console.ConsoleApp %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.gov.cqaudit.generate_data.TestGenerate" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-12-07T12:09:50" hostname="localhost.localdomain" time="0.005">
+  <properties/>
+  <testcase name="testGenerateData" classname="cn.gov.cqaudit.generate_data.TestGenerate" time="0.005"/>
+  <system-out><![CDATA[/u01/bigResource/code/back/generate_data/build/classes/java/test/
+test
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,7 +1,5 @@
 
-plugins {
-    id 'java'
-    id 'application'
-}
+apply plugin: 'application'
 
-mainClassName = 'cn.gov.cqaudit.big_reource.etl.import_hbase.console.ConsoleApp'
+
+mainClassName = 'cn.gov.cqaudit.big_resource.etl.import_hbase.console.ConsoleApp'
