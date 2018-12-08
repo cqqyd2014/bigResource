@@ -1,0 +1,35 @@
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'java-gradle-plugin'
+
+}
+processResources {
+    from('src/main/resource')
+
+}
+description='工具类'
+dependencies {
+
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+
+
+}
+publishing {
+    repositories {
+        maven {
+            url "http://192.168.88.17:8080/nexus-2.14.2-01/content/repositories/cqqyd-snapshots/"
+            credentials {
+                username 'admin'
+                password 'Wang1980'
+            }
+        }
+    }
+}
+test {
+    useJUnitPlatform()
+
+
+}

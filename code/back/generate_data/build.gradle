@@ -1,14 +1,36 @@
 
 plugins {
     id 'java-library'
+    id 'maven-publish'
+    id 'java-gradle-plugin'
 
 }
+processResources {
+    from('src/main/resource')
 
-
+}
 description='用于生成测试数据'
 dependencies {
 // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
-compile group: 'org.apache.commons', name: 'commons-csv', version: '1.6'
-testCompile group:'junit',name:'junit',version:'4.12'
+  implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.+'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+
+
+}
+publishing {
+    repositories {
+        maven {
+            url "http://192.168.88.17:8080/nexus-2.14.2-01/content/repositories/cqqyd-snapshots/"
+            credentials {
+                username 'admin'
+                password 'Wang1980'
+            }
+        }
+    }
+}
+test {
+    useJUnitPlatform()
+
 
 }
