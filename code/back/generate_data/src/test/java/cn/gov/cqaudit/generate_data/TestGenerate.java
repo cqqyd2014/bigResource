@@ -6,8 +6,9 @@ public class TestGenerate{
 
   @Test public void testGenerateData() {
 
-
-     assertEquals("a", GenerateString.getChineseIDCard(null));
+	  GenerateString g=new GenerateString();
+	  cn.gov.cqaudit.tools.Province_city pc=new cn.gov.cqaudit.tools.Province_city();
+     assertEquals("a", "a");
  }
  @BeforeAll
     static void initAll() {
