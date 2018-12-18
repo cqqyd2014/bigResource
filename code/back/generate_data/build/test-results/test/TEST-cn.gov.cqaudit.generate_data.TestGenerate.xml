@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="cn.gov.cqaudit.generate_data.TestGenerate" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-12-18T09:51:47" hostname="wl-hadoop" time="0.026">
+<testsuite name="cn.gov.cqaudit.generate_data.TestGenerate" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-12-18T12:04:37" hostname="User-PC" time="0.003">
   <properties/>
-  <testcase name="testGenerateData()" classname="cn.gov.cqaudit.generate_data.TestGenerate" time="0.026"/>
-  <system-out><![CDATA[不能打开省市CSV文件java.io.FileNotFoundException: file:/root/bigResource/code/back/tools/build/libs/tools-0.0.1-SNAPSHOT.jar!/china_province_city.csv (No such file or directory)
-]]></system-out>
+  <testcase name="testGenerateData" classname="cn.gov.cqaudit.generate_data.TestGenerate" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
