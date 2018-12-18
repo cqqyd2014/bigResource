@@ -1,2 +1,1 @@
-test start1
-%错误java.lang.NullPointerException
+�不能打开省市CSV文件java.io.FileNotFoundException: file:/root/bigResource/code/back/tools/build/libs/tools-0.0.1-SNAPSHOT.jar!/china_province_city.csv (No such file or directory)
