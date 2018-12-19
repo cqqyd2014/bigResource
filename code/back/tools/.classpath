@@ -7,14 +7,26 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry output="bin/main" kind="src" path="src/main/resources">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry output="bin/test" kind="src" path="src/test/java">
 		<attributes>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry output="bin/test" kind="src" path="src/test/resources">
+		<attributes>
+			<attribute name="gradle_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value="test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
-	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.7-SNAPSHOT/68d6d56bf1a888367d8b13ee54a56ebbf22d72fe/commons-csv-1.7-SNAPSHOT-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.7-SNAPSHOT/821e217f0cccf2e44e4a462c316310d3db3ebd53/commons-csv-1.7-SNAPSHOT.jar">
+	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.7-SNAPSHOT/8b98a1c7edfbe74683c5c85fb5b1fb80ef8d5bc6/commons-csv-1.7-SNAPSHOT-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.7-SNAPSHOT/2495fcc6e00ab583848a5cc33038233553645db2/commons-csv-1.7-SNAPSHOT.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -79,11 +91,6 @@
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-test-autoconfigure/2.1.1.RELEASE/de7a391f9bed546b2997a1d174c502ceda302535/spring-boot-test-autoconfigure-2.1.1.RELEASE-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-test-autoconfigure/2.1.1.RELEASE/2140feb53ecf35dd86f93749817cc064f1d6af74/spring-boot-test-autoconfigure-2.1.1.RELEASE.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="test"/>
@@ -99,17 +106,12 @@
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.hamcrest/hamcrest-library/1.3/47a7ee46628ab7133129cd7cef1e92657bc275e/hamcrest-library-1.3-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.hamcrest/hamcrest-library/1.3/4785a3c21320980282f9f33d0d1264a69040538f/hamcrest-library-1.3.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/com.jayway.jsonpath/json-path/2.4.0/c43fc506196089da87a7bb36ec847b57072a818b/json-path-2.4.0-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/com.jayway.jsonpath/json-path/2.4.0/765a4401ceb2dc8d40553c2075eb80a8fa35c2ae/json-path-2.4.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
@@ -120,6 +122,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.mockito/mockito-core/2.23.4/6878fee8002a77fc3d29d2407d9cb059e3792827/mockito-core-2.23.4-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.mockito/mockito-core/2.23.4/a35b6f8ffcfa786771eac7d7d903429e790fdf3f/mockito-core-2.23.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.hamcrest/hamcrest-library/1.3/47a7ee46628ab7133129cd7cef1e92657bc275e/hamcrest-library-1.3-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.hamcrest/hamcrest-library/1.3/4785a3c21320980282f9f33d0d1264a69040538f/hamcrest-library-1.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>

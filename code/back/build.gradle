@@ -1,45 +1,25 @@
 allprojects {
     repositories {
         maven{
-          url "http://192.168.88.17:8080/nexus-2.14.2-01/content/groups/public/"
+          url 'http://192.168.88.17:8080/nexus-2.14.2-01/content/groups/public/'
         }
     }
-		apply plugin: 'java'
-		apply plugin: 'eclipse'
-
-
-
-		group = 'cn.gov.cqaudit.big_reource'
-		version = '0.0.1-SNAPSHOT'
-		sourceCompatibility = 1.8
-
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	group = 'cn.gov.cqaudit.big_reource'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = 1.8
     dependencies{
-      testCompile "junit:junit:4.12"
+
     }
 
-
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
 
-subprojects{
-
-
-
-
-}
-
-
-project (":import_hbase_module"){
-  dependencies{
-    implementation project (":generate_data")
-  }
-}
-project (":import_hbase_console"){
-  dependencies{
-    implementation project (":import_hbase_module")
-  }
-}
-project (":generate_data"){
-  dependencies{
-    implementation project (":tools")
-  }
+project(':generate_data') {
+    dependencies {
+        implementation project(':tools')
+    }
 }

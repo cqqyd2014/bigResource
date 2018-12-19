@@ -1,3 +1,7 @@
 plugins {
     id 'java-library'
 }
+dependencies {
+    implementation("org.springframework.data:spring-data-hadoop-boot:2.5.0.RELEASE")
+
+}

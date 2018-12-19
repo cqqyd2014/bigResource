@@ -12,6 +12,7 @@ import cn.gov.cqaudit.tools.Province_city;
 @SpringBootApplication(scanBasePackages= {"cn.gov.cqaudit.tools"})
 
 public class BootApplication implements CommandLineRunner {
+
 	@Autowired
     private Province_city province_city;
 
@@ -21,7 +22,6 @@ public class BootApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //System.out.println("a");
+    
     }
 }
-
