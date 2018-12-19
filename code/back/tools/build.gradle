@@ -29,7 +29,7 @@ tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 description='工具类'
-jar.enabled=true
+
 dependencies {
     implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.+'
 

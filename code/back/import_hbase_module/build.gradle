@@ -18,29 +18,22 @@ plugins {
 }
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-
-
-
-
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
-description='工具类'
-jar.enabled=true
+description='导入hbase工具'
+
 dependencies {
-  implementation("org.springframework.data:spring-data-hadoop-boot:2.5.0.RELEASE")
-    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.+'
+	implementation("org.springframework.data:spring-data-hadoop-boot:2.5.0.RELEASE")
 
 	implementation('org.springframework.boot:spring-boot-starter')
 	{
-exclude module: 'spring-boot-starter-logging'
-}
+		exclude module: 'spring-boot-starter-logging'
+	}
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	{
-exclude module: 'spring-boot-starter-logging'
-}
-
-
+	exclude module: 'spring-boot-starter-logging'
+	}
 }
 jar.enabled=true
 publishing {
