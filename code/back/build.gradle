@@ -3,6 +3,9 @@ allprojects {
         maven{
           url 'http://192.168.88.17:8080/nexus-2.14.2-01/content/groups/public/'
         }
+        maven { url "http://repo.spring.io/libs-release" }
+        jcenter()
+        mavenCentral()
     }
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
@@ -10,7 +13,7 @@ allprojects {
 	version = '0.0.1-SNAPSHOT'
 	sourceCompatibility = 1.8
     dependencies{
-
+    	implementation 'org.projectlombok:lombok:1.+'
     }
 
 }
@@ -21,5 +24,10 @@ tasks.withType(JavaCompile) {
 project(':generate_data') {
     dependencies {
         implementation project(':tools')
+    }
+}
+project(':dao') {
+    dependencies {
+        implementation project(':entity')
     }
 }

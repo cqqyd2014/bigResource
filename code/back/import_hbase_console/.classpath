@@ -14,4 +14,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.4/ff45275b27cd70c701abed8e53e3b9f20806345b/lombok-1.18.4-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.4/7103ab519b1cdbb0642ad4eaf1db209d905d0f96/lombok-1.18.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 </classpath>
