@@ -1,36 +1,45 @@
 package cn.gov.cqaudit.big_resource.dao;
 
+import javax.annotation.Resource;
+
+import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.*;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import cn.gov.cqaudit.big_resource.import_hbase_module.BootApplication;
+
+import cn.gov.cqaudit.big_resource.dao.BootApplication;
+import cn.gov.cqaudit.big_resource.dao.inter.NodeInter;
+import cn.gov.cqaudit.big_resource.entity.Node;
+
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.hadoop.hbase.HbaseTemplate;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes={BootApplication.class})// 指定启动类
+@SpringBootTest
 public class TestApp {
-
+	/*@Resource(name="hbaseNodeImpl")        //实现类1中 @Service注解中标定的名称
+    private NodeInter nodeImpl;*/
+	/*@Autowired
+	private HbaseTemplate hbaseTemplate;*/
      @Test
-     public void testSomeLibraryMethod() {
+     public void testSome() {
+    	 ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext-hbase.xml");
+    	 BeanFactory factory = (BeanFactory) ctx;
+    	 //获取bean的实例
+    	 org.springframework.data.hadoop.hbase.HbaseTemplate hbaseTemplate=(org.springframework.data.hadoop.hbase.HbaseTemplate) factory.getBean("hbaseTemplate");
 
-       AbstractApplicationContext context = new ClassPathXmlApplicationContext(
-   				"/application-context.xml", TestApp.class);
+    	 Node node=new Node();
+    	 node.setId("510304198012211031");
+    	 node.setName("王利");
+    	 hbaseTemplate.put("node", node.getId(), "cf1", "name", Bytes.toBytes(node.getName()));
 
-   		context.registerShutdownHook();
-
-   		UserUtils userUtils = context.getBean(UserUtils.class);
-   		userUtils.initialize();
-   		userUtils.addUsers();
-
-   		UserRepository userRepository = context.getBean(UserRepository.class);
-   		List<User> users = userRepository.findAll();
-   		System.out.println("Number of users = " + users.size());
-   		System.out.println(users);
+   		
 
     }
 }

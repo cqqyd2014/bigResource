@@ -14,8 +14,10 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'java-gradle-plugin'
+	id "io.franzbecker.gradle-lombok" version "1.14"
 
 }
+
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 tasks.withType(JavaCompile) {
@@ -24,10 +26,12 @@ tasks.withType(JavaCompile) {
 description='数据访问组件'
 
 dependencies {
-	implementation("org.springframework.data:spring-data-hadoop-boot:2.5.0.RELEASE")
-	implementation 'org.apache.hbase:hbase-client:2.1.1'
-	implementation 'org.springframework.data:spring-data-hadoop:2.+'
-	implementation 'org.apache.hadoop:hadoop-common:2.8.5'
+
+
+	implementation 'org.apache.hbase:hbase-client:0.+'
+	implementation 'org.apache.hadoop:hadoop-common:2.6.0'
+	implementation 'org.springframework.data:spring-data-hadoop:2.2.0.RELEASE'
+	
 
 	implementation('org.springframework.boot:spring-boot-starter')
 	{

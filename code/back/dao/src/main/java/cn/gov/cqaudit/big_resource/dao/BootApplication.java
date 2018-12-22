@@ -10,8 +10,7 @@ import org.springframework.data.hadoop.fs.FsShell;
 @SpringBootApplication
 public class BootApplication implements CommandLineRunner {
 
-	@Autowired
-	private FsShell shell;
+
 
 	@Override
 	public void run(String... args) {
