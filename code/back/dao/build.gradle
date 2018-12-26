@@ -28,10 +28,14 @@ description='数据访问组件'
 dependencies {
 
 
-	implementation 'org.apache.hbase:hbase-client:0.+'
-	implementation 'org.apache.hadoop:hadoop-common:2.6.0'
-	implementation 'org.springframework.data:spring-data-hadoop:2.2.0.RELEASE'
+	implementation 'org.apache.hbase:hbase-client:2.+'
+	// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common
+	implementation group: 'org.apache.hadoop', name: 'hadoop-common', version: '2.8.5'
 	
+	// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs
+implementation group: 'org.apache.hadoop', name: 'hadoop-hdfs', version: '2.8.5'
+	
+
 
 	implementation('org.springframework.boot:spring-boot-starter')
 	{

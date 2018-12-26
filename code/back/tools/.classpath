@@ -26,12 +26,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
-	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.4/ff45275b27cd70c701abed8e53e3b9f20806345b/lombok-1.18.4-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.4/7103ab519b1cdbb0642ad4eaf1db209d905d0f96/lombok-1.18.4.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.7-SNAPSHOT/8b98a1c7edfbe74683c5c85fb5b1fb80ef8d5bc6/commons-csv-1.7-SNAPSHOT-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.7-SNAPSHOT/2495fcc6e00ab583848a5cc33038233553645db2/commons-csv-1.7-SNAPSHOT.jar">
+	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.6/7163d5c8c70c71d32507583a3f6297302b32fa71/commons-csv-1.6-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.6/22b3c2f901af973a8ec4f24e80c8c0c77a600b79/commons-csv-1.6.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -211,7 +206,7 @@
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/bigResource/code/back/tools/build/pluginUnderTestMetadata">
+	<classpathentry kind="lib" path="C:/Users/cqqyd_6us5hga/bigResource/code/back/tools/build/pluginUnderTestMetadata">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>

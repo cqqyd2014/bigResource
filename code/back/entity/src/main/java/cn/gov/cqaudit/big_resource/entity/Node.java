@@ -16,6 +16,11 @@ public class Node implements Serializable{
 	public String getId() {
 		return id;
 	}
+	public Node(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 	public void setId(String id) {
 		this.id = id;
 	}

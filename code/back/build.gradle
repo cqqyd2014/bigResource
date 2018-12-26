@@ -1,7 +1,6 @@
 allprojects {
     repositories {
-
-        maven { url "http://repo.spring.io/libs-release" }
+		maven { url "http://repo.spring.io/libs-release" }
         jcenter()
         mavenCentral()
     }
@@ -27,5 +26,11 @@ project(':generate_data') {
 project(':dao') {
     dependencies {
         implementation project(':entity')
+        implementation project(':tools')
+    }
+}
+project(':entity') {
+    dependencies {
+        implementation project(':tools')
     }
 }
