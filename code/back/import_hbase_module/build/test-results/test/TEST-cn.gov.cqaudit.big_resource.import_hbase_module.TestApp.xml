@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.gov.cqaudit.big_resource.import_hbase_module.TestApp" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-12-27T06:57:50" hostname="DESKTOP-LVH9DL5" time="0.546">
+  <properties/>
+  <testcase name="testSome" classname="cn.gov.cqaudit.big_resource.import_hbase_module.TestApp" time="0.546"/>
+  <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.1.RELEASE)
+
+
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/D:/software/gradle_user_home/caches/modules-2/files-2.1/org.json/json/20180813/8566b2b0391d9d4479ea225645c6ed47ef17fe41/json-20180813.jar!/org/json/JSONObject.class
+	jar:file:/D:/software/gradle_user_home/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+初始化HbaseDAO
+ProvinceCity初始化成功
+初始化connection
+Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+初始化connection成功
+Sun Jan 21 00:12:00 CST 2018
+用户管理
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/D:/software/gradle_user_home/caches/5.0/generated-gradle-jars/gradle-api-5.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/D:/software/gradle_user_home/caches/modules-2/files-2.1/org.slf4j/slf4j-log4j12/1.7.25/110cefe2df103412849d72ef7a67e4e91e4266b4/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.gradle.internal.logging.slf4j.OutputEventListenerBackedLoggerContext]
+]]></system-err>
+</testsuite>

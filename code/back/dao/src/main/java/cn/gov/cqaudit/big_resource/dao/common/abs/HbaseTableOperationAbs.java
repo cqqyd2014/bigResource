@@ -15,6 +15,8 @@ import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 
+import cn.gov.cqaudit.big_resource.entity.NodePerson;
+
 public abstract class HbaseTableOperationAbs<T> {
 	public void delete(Connection conn, String rowKey) {
 		// TODO Auto-generated method stub
@@ -27,9 +29,23 @@ public abstract class HbaseTableOperationAbs<T> {
 	        
 		
 	}
+	public boolean create(Connection conn,String tableName, T node) {
+		Table table=null;
+		 try {
+		   // Use the table as needed, for a single operation and a single thread
+			 table = conn.getTable(TableName.valueOf(tableName));
+			 Put put = mapPut(node,0);
+	         table.put(put);
+	         return true;
+		 } catch (Exception e) {
+				System.out.println(this.getClass().getName()+e.toString());
+				return false;
+			}
+	}
+	
 	public abstract void deleteList(Connection conn, List<Delete> rowKeys);
 	
-	public abstract void create(Connection conn,T node);
+	public abstract boolean create(Connection conn,T node);
 
 	public abstract T getByRowKey(Connection conn,String rowKey);
 	public abstract java.util.List<T> getAll(Connection conn);

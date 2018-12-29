@@ -1,2 +1,2 @@
 rootProject.name = 'bigResource_back_root'
-include 'dao','import_hbase_console','generate_data','tools','entity'
+include 'dao','import_hbase_csv','generate_data','tools','entity','import_hbase_module'

@@ -14,8 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import cn.gov.cqaudit.big_resource.dao.BootApplication;
 import cn.gov.cqaudit.big_resource.dao.common.abs.HbaseTableOperationAbs;
-import cn.gov.cqaudit.big_resource.dao.common.abs.TableOperationAbs;
+
 import cn.gov.cqaudit.big_resource.dao.config.ManualConfig;
+
 import cn.gov.cqaudit.big_resource.entity.Node;
 import cn.gov.cqaudit.big_resource.entity.NodePerson;
 import cn.gov.cqaudit.tools.ListTools;
@@ -34,24 +35,26 @@ public class TestApp {
 	private Connection hConn;
 	@Autowired
 	private ManualConfig mConfig;
+
      @Test
      public void testSome() {
-    	 try {
-    		 NodePerson node=new NodePerson("510304198012211031","王利",true,"1234",100);
-    		 
-
-        	 nodePersonImpl.putObjectManaulBatch(hConn, ListTools.oneToList(node), mConfig.getPut_batch_buffer_size()) ;
-        	 
-        	 NodePerson node_resule=nodePersonImpl.getByRowKey(hConn,"510304198012211031");
-        	 System.out.println(node_resule.getId()+node_resule.getMobile_phone());
-    	 }
-    	 catch(Exception e) {
-    		 System.out.println(e.toString());
-    	 }
+		/*
+		 * try { NodePerson node=new
+		 * NodePerson("510304198012211031","王利",true,"1234",100);
+		 * 
+		 * 
+		 * nodePersonImpl.putObjectManaulBatch(hConn, ListTools.oneToList(node),
+		 * mConfig.getPut_batch_buffer_size()) ;
+		 * 
+		 * NodePerson
+		 * node_resule=nodePersonImpl.getByRowKey(hConn,"510304198012211031");
+		 * System.out.println(node_resule.getId()+node_resule.getMobile_phone()); }
+		 * catch(Exception e) { System.out.println(e.toString()); }
+		 */
     	 
     	 //hbaseTemplate.put("node", node.getId(), "cf1", "name", Bytes.toBytes(node.getName()));
 
-   		
+
 
     }
 }

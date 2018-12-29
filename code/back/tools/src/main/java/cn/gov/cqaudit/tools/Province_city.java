@@ -1,7 +1,6 @@
 package cn.gov.cqaudit.tools;
 
-import java.io.File;
-import java.io.FileReader;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -9,9 +8,9 @@ import java.util.Random;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.context.annotation.Scope;
+
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
+
 
 @Component("province_city")
 
@@ -105,7 +104,7 @@ public class Province_city {
 	public void initDisstCodesByProviceIds(java.util.ArrayList<String> province_ids) {
 		java.util.ArrayList<String> dists_list_local=new java.util.ArrayList<>();
 		if (province_ids == null || province_ids.size() == 0) {
-			province_ids = ArrayListTools.intsToStringList(11, 60);
+			province_ids = ListTools.intsToStringList(11, 60);
 
 		}
 		for (int i = 0; i < province_ids.size(); i++) {

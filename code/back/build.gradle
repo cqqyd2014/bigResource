@@ -23,6 +23,19 @@ project(':generate_data') {
         implementation project(':tools')
     }
 }
+project(':import_hbase_module') {
+    dependencies {
+        implementation project(':dao')
+        implementation project(':entity')
+        implementation project(':tools')
+    }
+}
+project(':import_hbase_csv') {
+    dependencies {
+        implementation project(':import_hbase_module')
+
+    }
+}
 project(':dao') {
     dependencies {
         implementation project(':entity')

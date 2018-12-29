@@ -1,5 +1,6 @@
 package cn.gov.cqaudit.tools;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,8 @@ public class ListTools {
 	   * @param start
 	   * @param end
 	   */
-	   public static List<String> intsToStringList(int start,int end){
-		   java.util.List<String> a=new java.util.ArrayList<>();
+	   public static ArrayList<String> intsToStringList(int start,int end){
+		   java.util.ArrayList<String> a=new java.util.ArrayList<>();
 		   if (start>end) {
 			   int br=end;
 			   end=start;
