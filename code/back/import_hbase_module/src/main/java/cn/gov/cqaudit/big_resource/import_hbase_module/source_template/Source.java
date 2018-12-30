@@ -6,6 +6,10 @@ public class Source {
 	String cvsFileName;
 	String jdbcDriver;
 	String jdbcUrl;
+	public Source() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public SourceTypeEnum getType() {
 		return type;
 	}
@@ -41,10 +45,28 @@ public class Source {
 	public String getJdbcPassWord() {
 		return jdbcPassWord;
 	}
+	public Source(SourceTypeEnum type, String cvsFileName, String jdbcDriver, String jdbcUrl, String jdbcUserName,
+			String jdbcPassWord, String sql) {
+		super();
+		this.type = type;
+		this.cvsFileName = cvsFileName;
+		this.jdbcDriver = jdbcDriver;
+		this.jdbcUrl = jdbcUrl;
+		this.jdbcUserName = jdbcUserName;
+		this.jdbcPassWord = jdbcPassWord;
+		this.sql = sql;
+	}
 	public void setJdbcPassWord(String jdbcPassWord) {
 		this.jdbcPassWord = jdbcPassWord;
 	}
 
 	String jdbcUserName;
 	String jdbcPassWord;
+	String sql;
+	public String getSql() {
+		return sql;
+	}
+	public void setSql(String sql) {
+		this.sql = sql;
+	}
 }

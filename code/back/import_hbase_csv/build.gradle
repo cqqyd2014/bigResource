@@ -33,11 +33,11 @@ description='导入CSV数据'
 jar.enabled=true
 
 bootJar {
-	mainClassName = 'cn.gov.cqaudit.big_reource.import_hbase_csv.CSVBoot'
+	mainClassName = 'cn.gov.cqaudit.big_resource.import_hbase_csv.CSVBoot'
 }
 
 dependencies {
-	
+
 	// https://mvnrepository.com/artifact/commons-io/commons-io
 	implementation group: 'commons-io', name: 'commons-io', version: '2.+'
 
@@ -60,4 +60,3 @@ dependencies {
 	exclude module: 'spring-boot-starter-logging'
 	}
 }
-

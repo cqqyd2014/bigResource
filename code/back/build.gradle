@@ -36,6 +36,16 @@ project(':import_hbase_csv') {
 
     }
 }
+
+
+
+
+project(':import_hbase_db') {
+    dependencies {
+        implementation project(':import_hbase_module')
+
+    }
+}
 project(':dao') {
     dependencies {
         implementation project(':entity')

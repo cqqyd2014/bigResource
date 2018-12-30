@@ -1,6 +1,8 @@
 package cn.gov.cqaudit.tools;
 
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.*;
@@ -26,7 +28,14 @@ public class TestTools {
 	
 	 @Test
     public void testOne(){
-			
-        System.out.println(StringTools.MD5EncodeUTF8("王利123"));
+
+        java.util.Date d3=new java.util.Date();
+        for (int i=0;i<10000000;i++) {
+			StringTools.checkDate2("1980-12-31");
+		}
+		java.util.Date d4=new java.util.Date();
+		System.out.println(d4.getTime()-d3.getTime());
+        
+        
     }
 }

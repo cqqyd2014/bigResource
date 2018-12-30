@@ -29,28 +29,15 @@ import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.Importer;
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImporterRow;
 import cn.gov.cqaudit.tools.DateTools;
 import cn.gov.cqaudit.tools.Province_city;
-
-
-
+import cn.gov.cqaudit.tools.StringTools;
 
 @Component("cSVImporter")
-public class CSVImporter extends DataImportOperationAbs<CSVParser>{
+public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 
 	@Autowired
 	private Connection hConn;
 
-	
-	String templateFileName;
 	String dataFileName;
-
-
-	public String getTemplateFileName() {
-		return templateFileName;
-	}
-
-	public void setTemplateFileName(String templateFileName) {
-		this.templateFileName = templateFileName;
-	}
 
 	public String getDataFileName() {
 		return dataFileName;
@@ -60,110 +47,74 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser>{
 		this.dataFileName = dataFileName;
 	}
 
-	public int getBatchCount() {
-		return batchCount;
-	}
-
-	public void setBatchCount(int batchCount) {
-		this.batchCount = batchCount;
-	}
-
-	int batchCount;
-	public static byte[] CF_INFO = Bytes.toBytes("cf1");
-	
-
-
-
-
-
-
-
-
-
 	@Override
-	public Put mapPut(ArrayList<String> oneLine, int rowNum) {
-		// TODO Auto-generated method stub
-		Put put = new Put(Bytes.toBytes(oneLine.get(0)));
-		//System.out.println(oneLine.get(0));
-		java.util.List<ImporterRow> template_rows=importer.getRows();
-		int column_index=0;
-		for (ImporterRow importerRow:template_rows) {
-			String colName=importerRow.getColumn();
-			put.addColumn(CF_INFO, Bytes.toBytes(colName), Bytes.toBytes(oneLine.get(column_index+1)));
-			//System.out.println(oneLine.get(column_index+1));
-		}
+	public CSVParser getResultset() throws Exception {
 
+		BufferedReader in = new BufferedReader(new FileReader(dataFileName));
+
+		CSVParser parser = CSVParser.parse(in, CSVFormat.RFC4180);
+
+		return parser;
+	}
+
+	// 生成一行put
+	public Put getPut(CSVRecord record) throws Exception{
+		
+		Put put = new Put(Bytes.toBytes(record.get(importer.getRowKey())));
+		// 依次读出其他列
+		java.util.List<ImporterRow> template_rows = importer.getRows();
+		for (ImporterRow importerRow : template_rows) {
+			String colName = importerRow.getColumn();
+
+			String colValue = record.get(colName);
+			//如果为空，该列忽略
+			if (colValue.length()==0) {
+				put=null;
+				return put;
+			}
+			//根据不同类型进行转换
+			switch (importerRow.getType()) {
+			case DATE:
+				//是否满足标准格式YYYY-MM-DD
+				if (!StringTools.checkDate(colValue)) {
+					put=null;
+					return put;
+				}
+				
+				break;
+			case DATETIME:
+				if (!StringTools.checkDateMiSecond(colValue)) {
+					put=null;
+					return put;
+				}
+				
+				break;
+			case NUMBER:
+				if(!StringTools.checkFloat(colValue)) {
+					
+				}
+				break;
+			case STRING:
+				break;
+				
+			default:
+				break;
+				
+			}
+
+			put.addColumn(CF_INFO, Bytes.toBytes(colName), Bytes.toBytes(colValue));
+		}
 		return put;
 	}
 
 	@Override
-	public CSVParser getResultset() throws Exception {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-				BufferedReader in = new BufferedReader(new FileReader(dataFileName));
-				// Reader in= new java.io.FileReader(file);
-				CSVParser parser = CSVParser.parse(in, CSVFormat.RFC4180);
-				//Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
-				return parser;
+	public int do_import_hbase_batch(CSVParser resultset) throws Exception {
+
+		for (CSVRecord record : resultset) {
+			processOneRow(record);
+		}
+		afterProcessOneRow();
+		return rowCountAll;
 	}
-
-
-
-	@Override
-	public int do_import_hbase_batch(CSVParser resultset) throws IOException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-				Table table = null;
-				TableName tName = TableName.valueOf(importer.getTableName());
-		        table = hConn.getTable(tName);
-		        int rowCountAll=0;
-				int rowCount=0;//记录计数
-				int batchDoCount=0;//已经处理的批次计数
-				java.util.ArrayList<Put> puts=new java.util.ArrayList<Put>();
-				
-				for (CSVRecord record : resultset) {
-					rowCount++;
-					rowCountAll++;
-					
-					java.util.ArrayList<String> oneLine=new java.util.ArrayList<String>();
-					//oneLine第一个元素是rowKey
-					oneLine.add(record.get(importer.getRowKey()));
-					java.util.List<ImporterRow> template_rows=importer.getRows();
-					for (ImporterRow importerRow:template_rows) {
-						String colName=importerRow.getColumn();
-						
-						String colValue=record.get(colName);
-						oneLine.add(colValue);
-					}
-					
-					//将一行数据转换为Put
-					
-					Put put =mapPut(oneLine,rowCount++);
-					puts.add(put);
-					//达到阈值，插入数据
-					if (rowCount==batchCount) {
-						//System.out.println("开始批处理插入");
-						table.put(puts); // 数据量达到某个阈值时提交，不达到不提交
-						//处理完之后的操作
-						rowCount=0;//重置为0
-						puts.clear();
-						batchDoCount++;
-						//System.out.println("批处理插入结束");
-						System.out.println("已经导入数据"+batchCount*batchDoCount);
-					}
-				}
-				//处理批量之后剩下的零星
-				table.put(puts);
-				System.out.println("结束导入，一共导入数据"+(batchCount*batchDoCount+puts.size()));
-				return rowCountAll;
-	}
-
-
-
-
-
-
-
-
 
 }
