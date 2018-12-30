@@ -8,17 +8,24 @@ import org.apache.hadoop.hbase.client.Put;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import cn.gov.cqaudit.big_resource.import_hbase_module.template.ImportDataTypeEnum;
-import cn.gov.cqaudit.big_resource.import_hbase_module.template.Importer;
-import cn.gov.cqaudit.big_resource.import_hbase_module.template.ImporterRow;
+import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImportDataTypeEnum;
+import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.Importer;
+import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImporterRow;
 
 
 
 public abstract class DataImportOperationAbs<T> {
 	
-	public abstract void init();
+	
+	public Importer importer;
+	String templateFileName;
+	
+	
+	public void init(String templateFileName) {
+		importer=readTemplate(templateFileName);
+	}
 
-	public abstract <T> Iterable<T> getList() throws IOException;
+	public abstract  T getResultset()  throws Exception ;
 
 	/**
 	 *
@@ -36,7 +43,7 @@ public abstract class DataImportOperationAbs<T> {
 	 * @param batchCount 一次批量处理的数量
 	 * @return
 	 */
-	public abstract int do_import_hbase_batch(Iterable<T> list)throws IOException;
+	public abstract int do_import_hbase_batch(T resultset)throws IOException;
 	
 
 	public Importer readTemplate(String fileName) {

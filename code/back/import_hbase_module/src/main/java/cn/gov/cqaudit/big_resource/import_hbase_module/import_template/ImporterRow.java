@@ -1,4 +1,4 @@
-package cn.gov.cqaudit.big_resource.import_hbase_module.template;
+package cn.gov.cqaudit.big_resource.import_hbase_module.import_template;
 
 public class ImporterRow {
 	
