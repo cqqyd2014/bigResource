@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.gov.cqaudit.big_resource.import_hbase_module.abs.DataImportOperationAbs;
+import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImportDataTypeEnum;
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImporterRow;
 import cn.gov.cqaudit.tools.DateTools;
 import cn.gov.cqaudit.tools.StringTools;
@@ -82,18 +84,58 @@ public class DbImporter extends DataImportOperationAbs<ResultSet,ResultSet>{
 	        java.sql.Connection conn = (java.sql.Connection) DriverManager.getConnection(source.getJdbcUrl(), source.getJdbcUserName(), source.getJdbcPassWord());
 	        PreparedStatement pstmt = (PreparedStatement)conn.prepareStatement(source.getSql());
 	        rs = pstmt.executeQuery();
+	        //得到结果列
+	        ResultSetMetaData rsmd=rs.getMetaData();
+	        java.util.ArrayList<JdbcResultItem> items=new java.util.ArrayList<JdbcResultItem>();
+	        for (int i=0;i<rsmd.getColumnCount();i++) {
+	        	JdbcResultItem item=new JdbcResultItem(rsmd.getColumnClassName(i+1),rsmd.getColumnName(i+1),i);
+	        	items.add(item);
+	        }
+	        
+	        //测试列的数量对不对
+	        System.out.println("测试列的数量对不对");
+	        java.util.List<ImporterRow> template_rows = importer.getRows();
+	        if((template_rows.size()+1)!=items.size()) {
+	        	throw new Exception("数据库返回列数量与导入定义数量不同,模板中列的数量为"+(template_rows.size()+1)+",数据库返回列数量为"+items.size());
+	        }
+	        //以模板为标准检查每个名字的列是否存在，类型是否正确
+	        System.out.println("以模板为标准检查每个名字的列是否存在，类型是否正确");
+	        for(int i=0;i<template_rows.size();i++) {
+	        	System.out.println("测试模板中的第"+(i+1)+"个列");
+	        	ImporterRow importer_row=template_rows.get(i);
+	        	String colName=importer_row.getColumn();
+	        	ImportDataTypeEnum colType=importer_row.getType();
+	        	boolean checkCol=false;
+	        	for (int j=0;j<items.size();j++) {
+	        		if (items.get(j).getColumn().equals(colName)) {
+	        			//这个列存在，继续测试类型
+	        			System.out.println(colName+"列存在");
+	        			String type=items.get(j).getType();
+
+	        			checkCol=JdbcDataCompareHbaseData.compare(type, colType);
+	        			if (!checkCol) {
+	    	        		throw new Exception(colName+"列类型不正确");
+	    	        	}
+	        		}
+	        	}
+	        	if (!checkCol) {
+	        		throw new Exception(colName+"列不在数据源中");
+	        	}
+	        }
+	        
 	    } catch (ClassNotFoundException e) {
 	        e.printStackTrace();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-		
+		System.out.println("成功获取数据库数据");
 		
 		return rs;
 	}
 
 	@Override
 	public int do_import_hbase_batch(ResultSet resultset) throws Exception {
+		
 		while (resultset.next()) {
 			processOneRow(resultset);
 		}

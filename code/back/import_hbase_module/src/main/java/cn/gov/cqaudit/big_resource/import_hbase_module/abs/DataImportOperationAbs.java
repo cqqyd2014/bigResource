@@ -2,9 +2,7 @@ package cn.gov.cqaudit.big_resource.import_hbase_module.abs;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Connection;
@@ -50,15 +48,18 @@ public abstract class DataImportOperationAbs<T,S> {
 	
 	//Put对象放入puts，根据批处理的参数，进行批处理
 	public void processOneRow(S record) throws Exception {
+		
 		rowCount++;
 		rowCountAll++;
+		//System.out.println("处理明细数据中"+rowCountAll);
 		//将一行数据转换为Put
 		Put put =getPut(record);
 		//为空的时候，忽略该列
 		if (put==null) {
 			return;
 		}
-		rowCount++;
+		
+		//System.out.println("rowCount:"+rowCount);
 		puts.add(put);
 		//达到阈值，插入数据
 		if (rowCount==batchCount) {
@@ -67,6 +68,8 @@ public abstract class DataImportOperationAbs<T,S> {
 			//处理完之后的操作
 			rowCount=0;//重置为0
 			puts.clear();
+			//System.out.println(batchDoCount);
+			//System.out.println(batchCount);
 			batchDoCount++;
 			//System.out.println("批处理插入结束");
 			System.out.println("已经导入数据"+batchCount*batchDoCount);
