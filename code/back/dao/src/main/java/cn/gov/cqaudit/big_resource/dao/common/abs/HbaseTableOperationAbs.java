@@ -15,9 +15,10 @@ import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 
+import cn.gov.cqaudit.big_resource.dao.common.HbaseDaoCommon;
 import cn.gov.cqaudit.big_resource.entity.NodePerson;
 
-public abstract class HbaseTableOperationAbs<T> {
+public abstract class HbaseTableOperationAbs<T> extends HbaseDaoCommon{
 	public void delete(Connection conn, String rowKey) {
 		// TODO Auto-generated method stub
 		
@@ -156,46 +157,7 @@ public abstract class HbaseTableOperationAbs<T> {
 		return putAutoBatch(conn,list);
 	}
 	
-	/*
-	 * HBase的put操作，批量大小手动指定
-	 * @param conn
-	 * @param tablename
-	 * @param putList
-	 * @param bufferSize 单位为MB
-	 * @return
-	 */
-	public boolean putManualBatch(Connection conn,String tablename, List<Put> putList,int bufferSize)
-	{
-	    BufferedMutator mutator = null;
-	    TableName tName = TableName.valueOf(tablename);
-	    BufferedMutatorParams params = new BufferedMutatorParams(tName);
-	    params.writeBufferSize(bufferSize*1024*1024); // 可以自己设定阈值 5M 达到5M则提交一次
-	    try
-	    {
-	         mutator = conn.getBufferedMutator(params);
-	         mutator.mutate(putList); // 数据量达到5M时会自动提交一次
-	         mutator.flush(); // 手动提交一次
-	         return true;
-	    }
-	    catch(Exception e)
-	    {
-	        e.printStackTrace();
-	        return false;
-	    }
-	    finally
-	    {
-	        try
-	        {
-	            if(mutator != null)mutator.close();  // 提交一次
-	        }
-	        catch(Exception e)
-	        {
-	            e.printStackTrace();
-	        }
-	    }
-	    
-	}
-
+	
 	public abstract boolean putManualBatch(Connection conn,List<Put> putList,int bufferSize);
 	public boolean putObjectManaulBatch(Connection conn,List<T> objectList,int bufferSize) {
 		java.util.List<Put> list=mapPuts(objectList);

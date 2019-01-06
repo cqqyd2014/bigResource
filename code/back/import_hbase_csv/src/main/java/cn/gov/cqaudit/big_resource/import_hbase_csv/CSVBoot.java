@@ -1,5 +1,6 @@
 package cn.gov.cqaudit.big_resource.import_hbase_csv;
 
+import org.apache.hadoop.hbase.client.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,8 @@ public class CSVBoot implements CommandLineRunner {
 
 	@Autowired
 	CSVImporter cSVImporter;
+	@Autowired
+	private Connection hConn;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CSVBoot.class, args);
@@ -28,11 +31,11 @@ public class CSVBoot implements CommandLineRunner {
 		}
 
 		try {
-			cSVImporter.init(args[1], Integer.parseInt(args[0]));
+			cSVImporter.init(hConn,args[0],args[1],Integer.parseInt(args[2]),Integer.parseInt(args[3]));
 
-			cSVImporter.setDataFileName(args[2]);
+			
 
-			cSVImporter.do_import_hbase_batch(cSVImporter.getList());
+			cSVImporter.do_import_hbase_batch(cSVImporter.getResultset(),hConn);
 		}
 		catch(Exception e) {
 			System.out.println(e.toString());

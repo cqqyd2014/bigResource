@@ -33,6 +33,7 @@ project(':import_hbase_module') {
 project(':import_hbase_csv') {
     dependencies {
         implementation project(':import_hbase_module')
+        implementation project(':dao')
 
     }
 }
@@ -43,7 +44,7 @@ project(':import_hbase_csv') {
 project(':import_hbase_db') {
     dependencies {
         implementation project(':import_hbase_module')
-
+		implementation project(':dao')
     }
 }
 project(':dao') {

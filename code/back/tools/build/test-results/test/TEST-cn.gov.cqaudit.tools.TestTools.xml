@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="cn.gov.cqaudit.tools.TestTools" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-12-30T09:59:12" hostname="DESKTOP-LVH9DL5" time="127.425">
+<testsuite name="cn.gov.cqaudit.tools.TestTools" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-01-05T06:49:04" hostname="DESKTOP-LVH9DL5" time="1.135">
   <properties/>
-  <testcase name="testOne" classname="cn.gov.cqaudit.tools.TestTools" time="127.425"/>
+  <testcase name="testOne" classname="cn.gov.cqaudit.tools.TestTools" time="1.135"/>
   <system-out><![CDATA[
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -13,8 +13,8 @@
 
 ProvinceCity初始化成功
 Sun Jan 21 00:12:00 CST 2018
-107989
-18405
+1
+1
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

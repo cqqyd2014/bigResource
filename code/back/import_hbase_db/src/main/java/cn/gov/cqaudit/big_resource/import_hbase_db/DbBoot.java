@@ -32,11 +32,11 @@ public class DbBoot implements CommandLineRunner {
 		}
 
 		try {
-			dbImporter.init(hConn,args[0],args[1],Integer.parseInt(args[2]));
+			dbImporter.init(hConn,args[0],args[1],Integer.parseInt(args[2]),Integer.parseInt(args[3]));
 
 
 
-			dbImporter.do_import_hbase_batch(dbImporter.getResultset());
+			dbImporter.do_import_hbase_batch(dbImporter.getResultset(),hConn);
 		}
 		catch(Exception e) {
 			System.out.println(e.toString());

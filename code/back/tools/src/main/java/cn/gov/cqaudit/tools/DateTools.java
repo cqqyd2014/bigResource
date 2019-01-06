@@ -73,11 +73,14 @@ public class DateTools {
 	  * @param d1 日期
 	  * @param type 格式
 	  */
+	 public static java.text.SimpleDateFormat sdf=new java.text.SimpleDateFormat();
 	 public static String convertString(java.util.Date d1,String type) {
-		  
-	      java.text.SimpleDateFormat format = 
-	    		  new java.text.SimpleDateFormat(type, java.util.Locale.CHINA);
-	           String result = format.format(d1);
+		  sdf.applyPattern(type);
+		/*
+		 * java.text.SimpleDateFormat format = new java.text.SimpleDateFormat(type,
+		 * java.util.Locale.CHINA);
+		 */
+	           String result = sdf.format(d1);
 	           return result;
 
 	 }
@@ -91,7 +94,8 @@ public class DateTools {
 	  * @throws ParseException
 	  */
 	 public static java.util.Date convertDate(String s1,String type) throws ParseException{
-		 SimpleDateFormat sdf = new SimpleDateFormat(type);
+		/* SimpleDateFormat sdf = new SimpleDateFormat(type); */
+		 sdf.applyPattern(type);
 		 return sdf.parse(s1);
 	 }
 	 
@@ -101,14 +105,15 @@ public class DateTools {
 	  * @param d1 需要清洗的日期
 	  */
 	 public static java.util.Date cleanHHmiss(java.util.Date d1){
-		 String s1=convertString(d1,"yyyy-mm-dd");
+		 String s1=convertString(d1,"yyyy-MM-dd");
 		 
 		 try {
-			 d1=convertDate(s1,"yyyy-mm-dd");
+			 d1=convertDate(s1,"yyyy-MM-dd");
 		 }
 		 catch(ParseException e) {
 			 System.out.println(e.toString());
 		 }
+		 s1=null;
 		 return d1;
 	 }
 	 

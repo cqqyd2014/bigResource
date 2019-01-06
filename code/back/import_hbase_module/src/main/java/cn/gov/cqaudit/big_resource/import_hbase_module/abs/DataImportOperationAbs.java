@@ -2,6 +2,7 @@ package cn.gov.cqaudit.big_resource.import_hbase_module.abs;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.hbase.TableName;
@@ -12,16 +13,18 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import cn.gov.cqaudit.big_resource.dao.common.HbaseDaoCommon;
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImportDataTypeEnum;
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.Importer;
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImporterRow;
 import cn.gov.cqaudit.big_resource.import_hbase_module.source_template.Source;
 import cn.gov.cqaudit.big_resource.import_hbase_module.source_template.SourceTypeEnum;
+import cn.gov.cqaudit.tools.ArrayTools;
 
 
 
-public abstract class DataImportOperationAbs<T,S> {
-	
+public abstract class DataImportOperationAbs<T,S> extends HbaseDaoCommon{
+	public long bufferSize;
 	public Table table = null;
 	public TableName tName;
 	public Importer importer;
@@ -30,26 +33,22 @@ public abstract class DataImportOperationAbs<T,S> {
 	String sourceFileName;
 	public 	int batchCount;
 	public static byte[] CF_INFO = Bytes.toBytes("cf1");
-	public int rowCountAll=0;
+	public long rowCountAll=0;
 		public int rowCount=0;//记录计数
 		public int batchDoCount=0;//已经处理的批次计数
-		java.util.ArrayList<Put> puts;
+		//java.util.ArrayList<Put> puts;
+		Put[] puts;
 	
 		
-	//执行数据Put操作
-	public int tablePuts(java.util.ArrayList<Put> puts) throws IOException {
-		table.put(puts); 
-		return puts.size();
-	}
 	
 	//读出的原始数据变为Put对象
 	public abstract Put getPut(S record) throws Exception;
 	
 	
 	//Put对象放入puts，根据批处理的参数，进行批处理
-	public void processOneRow(S record) throws Exception {
+	public void processOneRow(S record,Connection hconn) throws Exception {
 		
-		rowCount++;
+		
 		rowCountAll++;
 		//System.out.println("处理明细数据中"+rowCountAll);
 		//将一行数据转换为Put
@@ -60,38 +59,56 @@ public abstract class DataImportOperationAbs<T,S> {
 		}
 		
 		//System.out.println("rowCount:"+rowCount);
-		puts.add(put);
+		//puts.add(put);
+		puts[rowCount]=put;
+		rowCount++;
+		//System.out.println(Bytes.toString(put.getRow()));
+		put=null;
 		//达到阈值，插入数据
 		if (rowCount==batchCount) {
 			//System.out.println("开始批处理插入");
-			tablePuts(puts); // 数据量达到某个阈值时提交，不达到不提交
+			//tablePuts(puts); // 数据量达到某个阈值时提交，不达到不提交
+			putManualBatch(hconn,table.getName().getNameAsString(),ArrayTools.convertList(puts) ,bufferSize);
 			//处理完之后的操作
 			rowCount=0;//重置为0
-			puts.clear();
+			//清理数组
+			cleanArray();
+			//puts.clear();
+			//puts.trimToSize();
 			//System.out.println(batchDoCount);
 			//System.out.println(batchCount);
 			batchDoCount++;
 			//System.out.println("批处理插入结束");
 			System.out.println("已经导入数据"+batchCount*batchDoCount);
+			System.gc();
 		}
 	}
 	
 	//处理批量之后剩下的零星
-	public void afterProcessOneRow() throws IOException {
+	public void afterProcessOneRow(Connection hconn) throws IOException {
 		
-		tablePuts(puts);
-		System.out.println("结束导入，一共导入数据"+(batchCount*batchDoCount+puts.size()));
+		//tablePuts(puts);
+		putManualBatch(hconn,table.getName().getNameAsString(), ArrayTools.convertList(puts) ,bufferSize);
+		//puts.clear();
+		cleanArray();
+		System.out.println("结束导入，一共导入数据"+(batchCount*batchDoCount+puts.length));
 	}
 	
 	//初始化环境
-	public void init(Connection hConn,String sourceFileName,String templateFileName,int batchCount) throws IOException {
+	public void init(Connection hConn,String sourceFileName,String templateFileName,int batchCount,int bufferSize) throws IOException {
+		this.bufferSize=bufferSize;
+		System.out.println("读取导入表模板");
 		importer=readImportTemplate(templateFileName);
+		System.out.println("读取数据源");
 		source=readSourceTemplate(sourceFileName);
 		this.batchCount=batchCount;
 		
 		tName= TableName.valueOf(importer.getTableName());
+		System.out.println("连接操作表"+tName);
         table = hConn.getTable(tName);
-        puts=new java.util.ArrayList<Put>();
+        //puts=new java.util.ArrayList<Put>();
+        puts=new Put[batchCount];
+        System.out.println("初始化成功");
 	}
 
 	
@@ -105,7 +122,7 @@ public abstract class DataImportOperationAbs<T,S> {
 	 * @param batchCount 一次批量处理的数量
 	 * @return
 	 */
-	public abstract int do_import_hbase_batch(T resultset)throws Exception;
+	public abstract long do_import_hbase_batch(T resultset,Connection hconn)throws Exception;
 	
 	//读取数据源参数
 	public Source readSourceTemplate(String sourceFieName) {
@@ -213,6 +230,12 @@ public abstract class DataImportOperationAbs<T,S> {
 
 
 
+	}
+	
+	private void cleanArray() {
+		for (int i=0;i<puts.length;i++) {
+			puts[i]=null;
+		}
 	}
 
 }

@@ -29,13 +29,12 @@ public class TestTools {
 	 @Test
     public void testOne(){
 
-        java.util.Date d3=new java.util.Date();
-        for (int i=0;i<10000000;i++) {
-			StringTools.checkDate2("1980-12-31");
-		}
-		java.util.Date d4=new java.util.Date();
-		System.out.println(d4.getTime()-d3.getTime());
-        
+       String a="1";
+       java.util.ArrayList<String> list=new java.util.ArrayList<String>();
+       list.add(a);
+       System.out.println(list.get(0));
+       a=null;
+       System.out.println(list.get(0));
         
     }
 }

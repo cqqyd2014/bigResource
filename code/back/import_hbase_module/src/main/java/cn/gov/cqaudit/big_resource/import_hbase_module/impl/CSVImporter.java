@@ -34,33 +34,29 @@ import cn.gov.cqaudit.tools.StringTools;
 @Component("cSVImporter")
 public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 
-	@Autowired
-	private Connection hConn;
 
-	String dataFileName;
 
-	public String getDataFileName() {
-		return dataFileName;
-	}
 
-	public void setDataFileName(String dataFileName) {
-		this.dataFileName = dataFileName;
-	}
 
 	@Override
 	public CSVParser getResultset() throws Exception {
 
-		BufferedReader in = new BufferedReader(new FileReader(dataFileName));
-
-		CSVParser parser = CSVParser.parse(in, CSVFormat.RFC4180);
-
+		BufferedReader in = new BufferedReader(new FileReader(source.getCvsFileName()));
+		System.out.println("打开文件");
+		CSVParser parser = CSVParser.parse(in, CSVFormat.RFC4180.withHeader());
+		System.out.println("识别CSV文件");
 		return parser;
 	}
 
 	// 生成一行put
 	public Put getPut(CSVRecord record) throws Exception{
 		
+		//System.out.println(importer.getRowKey());
+		if (record.get(importer.getRowKey()).length()==0) {
+			return null;
+		}
 		Put put = new Put(Bytes.toBytes(record.get(importer.getRowKey())));
+		
 		// 依次读出其他列
 		java.util.List<ImporterRow> template_rows = importer.getRows();
 		for (ImporterRow importerRow : template_rows) {
@@ -68,10 +64,9 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 
 			String colValue = record.get(colName);
 			//如果为空，该列忽略
-			if (colValue.length()==0) {
-				put=null;
-				return put;
-			}
+			if (colValue.length()!=0) {
+				
+			
 			//根据不同类型进行转换
 			switch (importerRow.getType()) {
 			case DATE:
@@ -95,6 +90,7 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 				}
 				break;
 			case STRING:
+				colValue=colValue.replace(" ", "");
 				break;
 				
 			default:
@@ -103,17 +99,20 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 			}
 
 			put.addColumn(CF_INFO, Bytes.toBytes(colName), Bytes.toBytes(colValue));
+			}
 		}
 		return put;
 	}
 
 	@Override
-	public int do_import_hbase_batch(CSVParser resultset) throws Exception {
-
+	public long do_import_hbase_batch(CSVParser resultset,Connection hconn) throws Exception {
+		
 		for (CSVRecord record : resultset) {
-			processOneRow(record);
+			
+			processOneRow(record,hconn);
+			
 		}
-		afterProcessOneRow();
+		afterProcessOneRow(hconn);
 		return rowCountAll;
 	}
 
