@@ -1,5 +1,7 @@
 package cn.gov.cqaudit.big_resource.entity;
 
+import java.time.LocalDateTime;
+
 import cn.gov.cqaudit.tools.DateTools;
 import cn.gov.cqaudit.tools.StringTools;
 
@@ -20,7 +22,7 @@ public class Chain {
 		this.seq = seq;
 	}
 
-	public Chain(String start_end_seq_md5, String seq, String start_node_id, String end_node_id, java.util.Date date_time,
+	public Chain(String start_end_seq_md5, String seq, String start_node_id, String end_node_id, LocalDateTime date_time,
 			String type, float amount) {
 		super();
 		this.start_end_seq_md5 = start_end_seq_md5;
@@ -31,11 +33,11 @@ public class Chain {
 		this.type = type;
 		this.amount = amount;
 	}
-	public Chain(String seq, String start_node_id, String end_node_id, java.util.Date date_time,
+	public Chain(String seq, String start_node_id, String end_node_id, LocalDateTime date_time,
 			String type, float amount) {
 		super();
 		this.start_end_seq_md5 = StringTools.MD5EncodeUTF8(start_node_id)
-				+DateTools.convertString(date_time,"YYYY-MM-dd HH:mi:ss.SSS")
+				+DateTools.formatLocalDateTime(date_time,"yyyy-MM-dd HH:mm:ss.SSS")
 				+StringTools.MD5EncodeUTF8(end_node_id)+StringTools.MD5EncodeUTF8(seq);
 		this.seq = seq;
 		this.start_node_id = start_node_id;
@@ -53,11 +55,11 @@ public class Chain {
 
 	String start_node_id;
 	String end_node_id;
-	java.util.Date date_time;
-	public java.util.Date getDate_time() {
+	LocalDateTime date_time;
+	public LocalDateTime getDate_time() {
 		return date_time;
 	}
-	public void setDate_time(java.util.Date date_time) {
+	public void setDate_time(LocalDateTime date_time) {
 		this.date_time = date_time;
 	}
 	String type;

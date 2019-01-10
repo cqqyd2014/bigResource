@@ -85,8 +85,8 @@ public class HbaseNodeCompanyImpl extends NodeCompanyAbs{
 					, Bytes.toString(result.getValue(CF_INFO, address))
 					, Bytes.toString(result.getValue(CF_INFO, law_man))
 					, Bytes.toFloat(result.getValue(CF_INFO, capital))
-					, DateTools.convertDate(Bytes.toString(result.getValue(CF_INFO, start_date)),"yyyy-MM-dd")
-					, DateTools.convertDate(Bytes.toString(result.getValue(CF_INFO, end_date)),"yyyy-MM-dd")
+					, DateTools.convertLocalDate(Bytes.toString(result.getValue(CF_INFO, start_date)),"yyyy-MM-dd")
+					, DateTools.convertLocalDate(Bytes.toString(result.getValue(CF_INFO, end_date)),"yyyy-MM-dd")
 					, Bytes.toBoolean(result.getValue(CF_INFO, forever))
 					, Bytes.toString(result.getValue(CF_INFO, business_scope))
 					, Bytes.toString(result.getValue(CF_INFO, register)));
@@ -106,7 +106,7 @@ public class HbaseNodeCompanyImpl extends NodeCompanyAbs{
 	@Override
 	public boolean putManualBatch(Connection conn, List<Put> putList, int bufferSize) {
 		// TODO Auto-generated method stub
-		return putManualBatch(conn,tableName,putList,bufferSize);
+		return putManualBatch(conn,putList,bufferSize);
 	}
 
 	@Override
@@ -119,8 +119,8 @@ public class HbaseNodeCompanyImpl extends NodeCompanyAbs{
 		put.addColumn(CF_INFO, law_man, Bytes.toBytes(object.getLaw_man()));
 		put.addColumn(CF_INFO, address, Bytes.toBytes(object.getAddress()));
 		put.addColumn(CF_INFO, capital, Bytes.toBytes(object.getCapital()));
-		put.addColumn(CF_INFO, start_date, Bytes.toBytes(DateTools.convertString(object.getStart_date(),"yyyy-mm-dd")));
-		put.addColumn(CF_INFO, end_date, Bytes.toBytes(DateTools.convertString(object.getEnd_date(),"yyyy-mm-dd")));
+		put.addColumn(CF_INFO, start_date, Bytes.toBytes(DateTools.formatLocalDate(object.getStart_date(),"yyyy-mm-dd")));
+		put.addColumn(CF_INFO, end_date, Bytes.toBytes(DateTools.formatLocalDate(object.getEnd_date(),"yyyy-mm-dd")));
 		put.addColumn(CF_INFO, forever, Bytes.toBytes(object.isForever()));
 		put.addColumn(CF_INFO, business_scope, Bytes.toBytes(object.getBusiness_scope()));
 		put.addColumn(CF_INFO, register, Bytes.toBytes(object.getRegister()));

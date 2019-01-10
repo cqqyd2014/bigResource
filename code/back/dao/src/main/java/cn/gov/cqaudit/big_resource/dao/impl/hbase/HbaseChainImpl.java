@@ -78,7 +78,7 @@ public class HbaseChainImpl extends HbaseTableOperationAbs<Chain>{
 					, Bytes.toString(result.getValue(CF_INFO, seq))
 					, Bytes.toString(result.getValue(CF_INFO, start_node_id))
 					, Bytes.toString(result.getValue(CF_INFO, end_node_id))
-					, DateTools.convertDate(Bytes.toString(result.getValue(CF_INFO, date_time)),"YYYY-MM-dd HH:mi:ss.SSS")
+					, DateTools.convertLocalDateTime(Bytes.toString(result.getValue(CF_INFO, date_time)),"YYYY-MM-dd HH:mi:ss.SSS")
 					, Bytes.toString(result.getValue(CF_INFO, type))
 					, Bytes.toFloat(result.getValue(CF_INFO, amount)));
 		} catch (ParseException e) {
@@ -97,7 +97,7 @@ public class HbaseChainImpl extends HbaseTableOperationAbs<Chain>{
 	@Override
 	public boolean putManualBatch(Connection conn, List<Put> putList, int bufferSize) {
 		// TODO Auto-generated method stub
-		return putManualBatch(conn,tableName,putList,bufferSize);
+		return putManualBatch(conn,putList,bufferSize);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class HbaseChainImpl extends HbaseTableOperationAbs<Chain>{
 		put.addColumn(CF_INFO, seq, Bytes.toBytes(object.getSeq()));
 		put.addColumn(CF_INFO, start_node_id, Bytes.toBytes(object.getStart_node_id()));
 		put.addColumn(CF_INFO, end_node_id, Bytes.toBytes(object.getEnd_node_id()));
-		put.addColumn(CF_INFO, date_time, Bytes.toBytes(DateTools.convertString(object.getDate_time(),"YYYY-MM-dd HH:mi:ss.SSS")));
+		put.addColumn(CF_INFO, date_time, Bytes.toBytes(DateTools.formatLocalDateTime(object.getDate_time(),"yyyy-MM-dd HH:mm:ss.SSS")));
 		put.addColumn(CF_INFO, type, Bytes.toBytes(object.getType()));
 		put.addColumn(CF_INFO, amount, Bytes.toBytes(object.getAmount()));
 		return put;

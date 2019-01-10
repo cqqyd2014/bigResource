@@ -31,11 +31,11 @@ public class CSVBoot implements CommandLineRunner {
 		}
 
 		try {
-			cSVImporter.init(hConn,args[0],args[1],Integer.parseInt(args[2]),Integer.parseInt(args[3]));
+			cSVImporter.init(hConn,args[0],args[1],Integer.parseInt(args[2]));
 
 			
 
-			cSVImporter.do_import_hbase_batch(cSVImporter.getResultset(),hConn);
+			cSVImporter.do_import_hbase_batch(hConn);
 		}
 		catch(Exception e) {
 			System.out.println(e.toString());

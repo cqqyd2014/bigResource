@@ -1,0 +1,142 @@
+{
+		
+	"desc":"XXXX",
+	"batchCount":10000,
+	"detail":[
+	{
+		"target_template":
+		{
+			"tableName": "finance_bank_account_detail",
+			"rowKey":"id",
+			"rows": [
+			{
+				"colName": "account",
+				"type":"STRING"
+			},
+			{
+				"colName": "trade_date",
+				"type":"DATETIME"
+			},
+			{
+				"colName": "dc_flag",
+				"type":"NUMBER"
+			},
+			{
+				"colName": "seq",
+				"type":"STRING"
+			},
+			{
+				"colName": "cash_flag",
+				"type":"NUMBER"
+			},
+			{
+				"colName": "amount",
+				"type":"NUMBER"
+			},
+			{
+				"colName": "banlance",
+				"type":"NUMBER"
+			},
+			{
+				"colName": "opp_account",
+				"type":"STRING"
+			},
+			{
+				"colName": "opp_account_name",
+				"type":"STRING"
+			},
+			{
+				"colName": "opp_bank",
+				"type":"STRING"
+			},
+			{
+				"colName": "opp_bank_name",
+				"type":"STRING"
+			},
+			{
+				"colName": "memo",
+				"type":"STRING"
+			}
+		    ]
+		},
+		"source":{
+			"type":"Database",
+			"cvsFileName":"d:/1.txt",
+			"jdbcDriver":"com.microsoft.sqlserver.jdbc.SQLServerDriver",
+			"jdbcUrl":"jdbc:sqlserver://10.188.83.231:1433;DatabaseName=sbdet",
+			"jdbcUserName":"sa",
+			"jdbcPassWord":"Pass1009",
+			"sql":"select  substring(sys.fn_sqlvarbasetostr(HashBytes('MD5',sbdet.dbo.[str_trim](账号))),3,32)+交易日期+replace(交易时间戳,':','')+'000'+substring(sys.fn_sqlvarbasetostr(HashBytes('MD5',借贷标志+原交易流水+case when 子交易流水 is null then '' else 子交易流水 end+传票组内序号)),3,32) id,sbdet.dbo.[str_trim]([账号]) account,convert(datetime,CONVERT(VARCHAR,CONVERT(DATE,REPLACE(交易日期,'-',''),120),120) +' '+sbdet.dbo.trade_stamp(交易时间戳),120) trade_date   ,case 借贷标志 when '收款' then 1 else 0 end as dc_flag         ,借贷标志+原交易流水+case when 子交易流水 is null then '' else 子交易流水 end+传票组内序号 seq         ,case 现转标志 when '转账' then 0 else 1 end as cash_flag       , 交易金额 amount       ,账户余额 banlance              ,sbdet.dbo.[str_trim](对方账号)  opp_account  ,对方账户名称 opp_account_name  ,对方行号 opp_bank      ,对方行名称 opp_bank_name               ,sbdet.dbo.[str_trim](备注) memo from [sbdet].[dbo].[基础表_存款业务_对公活期存款明细账]"
+	
+		}
+	},
+	{
+		"import_template":
+		{
+			"tableName": "finance_bank_account_detail",
+			"rowKey":"id",
+			"rows": [
+			{
+				"colName": "account",
+				"type":"STRING"
+			},
+			{
+				"colName": "trade_date",
+				"type":"DATETIME"
+			},
+			{
+				"colName": "dc_flag",
+				"type":"NUMBER"
+			},
+			{
+				"colName": "seq",
+				"type":"STRING"
+			},
+			{
+				"colName": "cash_flag",
+				"type":"NUMBER"
+			},
+			{
+				"colName": "amount",
+				"type":"NUMBER"
+			},
+			{
+				"colName": "banlance",
+				"type":"NUMBER"
+			},
+			{
+				"colName": "opp_account",
+				"type":"STRING"
+			},
+			{
+				"colName": "opp_account_name",
+				"type":"STRING"
+			},
+			{
+				"colName": "opp_bank",
+				"type":"STRING"
+			},
+			{
+				"colName": "opp_bank_name",
+				"type":"STRING"
+			},
+			{
+				"colName": "memo",
+				"type":"STRING"
+			}
+		    ]
+		},
+		"source":
+		{
+			"type":"Database",
+			"cvsFileName":"",
+			"jdbcDriver":"com.microsoft.jdbc.sqlserver.SQLServerDriver",
+			"jdbcUrl":"jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=tempdb",
+			"jdbcUserName":"sa",
+			"jdbcPassWord":"Wang1980",
+			"sql":"select * from table"
+		}
+	}
+	]
+	
+}

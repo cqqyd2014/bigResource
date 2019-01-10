@@ -1,10 +1,11 @@
 package cn.gov.cqaudit.big_resource.import_hbase_module.impl;
 
 import java.sql.Types;
-import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImportDataTypeEnum;
+
+import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTemplateTypeEnum;
 
 public class JdbcDataCompareHbaseData {
-	public static boolean compare(String jdbcType,ImportDataTypeEnum hbaseType) {
+	public static boolean compare(String jdbcType,TargetTemplateTypeEnum hbaseType) {
 		System.out.println("输入的分析类型分别为"+jdbcType+"与"+hbaseType);
 		switch (hbaseType) {
 		case	DATE:

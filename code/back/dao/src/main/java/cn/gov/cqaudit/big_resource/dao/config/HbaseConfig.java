@@ -75,9 +75,11 @@ public class HbaseConfig {
 	}
 	@Bean(name = "mConfig")
 	public ManualConfig mConfig(@Value("${hbase.put_batch_buffer_size}") String put_batch_buffer_size,
-			@Value("${hbase.scan_batch_do_work}") String scan_batch_do_work) {
+			@Value("${hbase.scan_cache}") String scan_cache,
+			@Value("${hbase.scan_batch}") String scan_batch) {
 		manualConfig.setPut_batch_buffer_size(Integer.valueOf(put_batch_buffer_size));
-		manualConfig.setScan_batch_do_work(Integer.valueOf(scan_batch_do_work));
+		manualConfig.setScan_batch(Integer.valueOf(scan_batch));
+		manualConfig.setScan_cache(Integer.valueOf(scan_cache));
 		return manualConfig;
 	}
 

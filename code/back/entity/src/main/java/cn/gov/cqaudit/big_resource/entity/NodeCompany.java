@@ -1,5 +1,6 @@
 package cn.gov.cqaudit.big_resource.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class NodeCompany extends Node{
@@ -17,11 +18,11 @@ public class NodeCompany extends Node{
 	String address;
 	String law_man;
 	float capital;
-	java.util.Date start_date;
-	java.util.Date end_date;
+	LocalDate start_date;
+	LocalDate end_date;
 	boolean forever;
 	public NodeCompany(String id, String name, String type, String address, String law_man, float capital,
-			Date start_date, Date end_date, boolean forever, String business_scope, String register) {
+			LocalDate start_date, LocalDate end_date, boolean forever, String business_scope, String register) {
 		super(id, name);
 		this.type = type;
 		this.address = address;
@@ -60,16 +61,16 @@ public class NodeCompany extends Node{
 	public void setCapital(float capital) {
 		this.capital = capital;
 	}
-	public java.util.Date getStart_date() {
+	public LocalDate getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(java.util.Date start_date) {
+	public void setStart_date(LocalDate start_date) {
 		this.start_date = start_date;
 	}
-	public java.util.Date getEnd_date() {
+	public LocalDate getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(java.util.Date end_date) {
+	public void setEnd_date(LocalDate end_date) {
 		this.end_date = end_date;
 	}
 	public boolean isForever() {

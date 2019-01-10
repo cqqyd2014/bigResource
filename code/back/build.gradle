@@ -39,7 +39,13 @@ project(':import_hbase_csv') {
 }
 
 
-
+project(':import_hbase_batch') {
+    dependencies {
+        implementation project(':import_hbase_module')
+		implementation project(':dao')
+		implementation project(':entity')
+    }
+}
 
 project(':import_hbase_db') {
     dependencies {

@@ -1,47 +1,46 @@
 package cn.gov.cqaudit.big_resource.import_hbase_module.impl;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.io.FileUtils;
-import org.apache.hadoop.hbase.TableName;
+
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Table;
+
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import cn.gov.cqaudit.big_resource.import_hbase_module.abs.DataImportOperationAbs;
-import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImportDataTypeEnum;
-import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.Importer;
-import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.ImporterRow;
-import cn.gov.cqaudit.tools.DateTools;
-import cn.gov.cqaudit.tools.Province_city;
+
+import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTemplateDetail;
+import cn.gov.cqaudit.big_resource.import_hbase_module.template_loader.SourceLoader;
+import cn.gov.cqaudit.big_resource.import_hbase_module.template_loader.TargetLoader;
 import cn.gov.cqaudit.tools.StringTools;
 
 @Component("cSVImporter")
+@Scope("prototype")
 public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 
+	@Autowired
+	TargetLoader targetLoader;
+	public CSVImporter() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-
+	@Autowired
+	SourceLoader sourceLoader;
 
 
 	@Override
 	public CSVParser getResultset() throws Exception {
 
-		BufferedReader in = new BufferedReader(new FileReader(source.getCvsFileName()));
+		BufferedReader in = new BufferedReader(new FileReader(sourceTemplate.getCvsFileName()));
 		System.out.println("打开文件");
 		CSVParser parser = CSVParser.parse(in, CSVFormat.RFC4180.withHeader());
 		System.out.println("识别CSV文件");
@@ -52,14 +51,14 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 	public Put getPut(CSVRecord record) throws Exception{
 		
 		//System.out.println(importer.getRowKey());
-		if (record.get(importer.getRowKey()).length()==0) {
+		if (record.get(targetTemplate.getRowKey()).length()==0) {
 			return null;
 		}
-		Put put = new Put(Bytes.toBytes(record.get(importer.getRowKey())));
+		Put put = new Put(Bytes.toBytes(record.get(targetTemplate.getRowKey())));
 		
 		// 依次读出其他列
-		java.util.List<ImporterRow> template_rows = importer.getRows();
-		for (ImporterRow importerRow : template_rows) {
+		java.util.List<TargetTemplateDetail> template_rows = targetTemplate.getDetails();
+		for (TargetTemplateDetail importerRow : template_rows) {
 			String colName = importerRow.getColumn();
 
 			String colValue = record.get(colName);
@@ -105,8 +104,8 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 	}
 
 	@Override
-	public long do_import_hbase_batch(CSVParser resultset,Connection hconn) throws Exception {
-		
+	public long do_import_hbase_batch(Connection hconn) throws Exception {
+		CSVParser resultset=getResultset();
 		for (CSVRecord record : resultset) {
 			
 			processOneRow(record,hconn);
@@ -114,6 +113,20 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 		}
 		afterProcessOneRow(hconn);
 		return rowCountAll;
+	}
+
+	@Override
+	public void readTartgetTemplate(String inputString) {
+		// TODO Auto-generated method stub
+		targetTemplate=targetLoader.load(inputString);
+	}
+
+	@Override
+	public void readSourceTemplate(String sourceString) {
+		// TODO Auto-generated method stub
+		sourceTemplate=sourceLoader.load(sourceString);
+				
+		
 	}
 
 }

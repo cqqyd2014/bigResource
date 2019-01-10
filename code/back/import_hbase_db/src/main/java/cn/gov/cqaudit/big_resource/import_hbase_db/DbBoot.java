@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import cn.gov.cqaudit.big_resource.dao.config.ManualConfig;
 import cn.gov.cqaudit.big_resource.import_hbase_module.impl.CSVImporter;
 import cn.gov.cqaudit.big_resource.import_hbase_module.impl.DbImporter;
 
@@ -16,6 +17,8 @@ public class DbBoot implements CommandLineRunner {
 	DbImporter dbImporter;
 	@Autowired
 	private Connection hConn;
+	@Autowired
+	private ManualConfig mConfig;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DbBoot.class, args);
@@ -32,11 +35,11 @@ public class DbBoot implements CommandLineRunner {
 		}
 
 		try {
-			dbImporter.init(hConn,args[0],args[1],Integer.parseInt(args[2]),Integer.parseInt(args[3]));
+			dbImporter.init(hConn,args[0],args[1],Integer.parseInt(args[2]));
 
+			
 
-
-			dbImporter.do_import_hbase_batch(dbImporter.getResultset(),hConn);
+			dbImporter.do_import_hbase_batch(hConn);
 		}
 		catch(Exception e) {
 			System.out.println(e.toString());

@@ -12,6 +12,11 @@
 	<classpathentry kind="src" path="/dao"/>
 	<classpathentry kind="src" path="/entity"/>
 	<classpathentry kind="src" path="/tools"/>
+	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/com.microsoft.sqlserver/mssql-jdbc/7.1.3.jre8-preview/bb28febab85c52253b954fd90d272f1628c44a76/mssql-jdbc-7.1.3.jre8-preview-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/com.microsoft.sqlserver/mssql-jdbc/7.1.3.jre8-preview/94df9d29002ab8d7f14ead435cdb5d548354653f/mssql-jdbc-7.1.3.jre8-preview.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.hbase/hbase-client/2.1.1/df290e3272fd7b0c77dbf020417c66a6720fb640/hbase-client-2.1.1-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.hbase/hbase-client/2.1.1/6ef301a49136b499b7a92387a49d1e30b572d50d/hbase-client-2.1.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
@@ -53,11 +58,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/commons-io/commons-io/2.6/2566800dc841d9d2c5a0d34d807e45d4107dbbdf/commons-io-2.6-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/commons-io/commons-io/2.6/815893df5f31da2ece4040fe0a12fd44b577afaf/commons-io-2.6.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.6/7163d5c8c70c71d32507583a3f6297302b32fa71/commons-csv-1.6-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.6/22b3c2f901af973a8ec4f24e80c8c0c77a600b79/commons-csv-1.6.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -602,17 +602,17 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/com.microsoft.sqlserver/mssql-jdbc/6.4.0.jre8/80da9543ac79de58425605d27db532ccd9e6b081/mssql-jdbc-6.4.0.jre8-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/com.microsoft.sqlserver/mssql-jdbc/6.4.0.jre8/d35eaaa34e061d362977d88821bf08c0797af612/mssql-jdbc-6.4.0.jre8.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.postgresql/postgresql/42.2.5/38646ec680de3cdaad06738686a3bc454022345/postgresql-42.2.5-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.postgresql/postgresql/42.2.5/951b7eda125f3137538a94e2cbdcf744088ad4c2/postgresql-42.2.5.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/mysql/mysql-connector-java/8.0.13/3ba97a59f0badd1ccd7463fac4941e47137f9afb/mysql-connector-java-8.0.13-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/mysql/mysql-connector-java/8.0.13/28015319e44ff50a8fee655e725fefc4990abeb1/mysql-connector-java-8.0.13.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.6/7163d5c8c70c71d32507583a3f6297302b32fa71/commons-csv-1.6-sources.jar" kind="lib" path="D:/software/gradle_user_home/caches/modules-2/files-2.1/org.apache.commons/commons-csv/1.6/22b3c2f901af973a8ec4f24e80c8c0c77a600b79/commons-csv-1.6.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>

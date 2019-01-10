@@ -75,7 +75,7 @@ public class NodeBusinessProjectImpl extends NodeBusinessProjectAbs{
 					, Bytes.toString(result.getValue(CF_INFO, name))
 					, Bytes.toString(result.getValue(CF_INFO, type))
 					, Bytes.toString(result.getValue(CF_INFO, seq)),
-					DateTools.convertDate(Bytes.toString(result.getValue(CF_INFO, datetime)),"YYYY-MM-dd HH:mi:ss.SSS"));
+					DateTools.convertLocalDateTime(Bytes.toString(result.getValue(CF_INFO, datetime)),"yyyy-MM-dd HH:mm:ss.SSS"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,7 +92,7 @@ public class NodeBusinessProjectImpl extends NodeBusinessProjectAbs{
 	@Override
 	public boolean putManualBatch(Connection conn, List<Put> putList, int bufferSize) {
 		// TODO Auto-generated method stub
-		return putManualBatch(conn,tableName,putList,bufferSize);
+		return putManualBatch(conn,putList,bufferSize);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class NodeBusinessProjectImpl extends NodeBusinessProjectAbs{
         put.addColumn(CF_INFO, name, Bytes.toBytes(object.getName()));
         put.addColumn(CF_INFO, type, Bytes.toBytes(object.getType()));
         put.addColumn(CF_INFO, seq, Bytes.toBytes(object.getSeq()));
-        put.addColumn(CF_INFO, datetime, Bytes.toBytes(DateTools.convertString(object.getDatetime(),"YYYY-MM-dd HH:mi:ss.SSS")));
+        put.addColumn(CF_INFO, datetime, Bytes.toBytes(DateTools.formatLocalDateTime(object.getDatetime(),"yyyy-MM-dd HH:mm:ss.SSS")));
 		return put;
 	}
 

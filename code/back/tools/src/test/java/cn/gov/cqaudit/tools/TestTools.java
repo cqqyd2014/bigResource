@@ -29,12 +29,10 @@ public class TestTools {
 	 @Test
     public void testOne(){
 
-       String a="1";
-       java.util.ArrayList<String> list=new java.util.ArrayList<String>();
-       list.add(a);
-       System.out.println(list.get(0));
-       a=null;
-       System.out.println(list.get(0));
+		/*
+		 * System.out.println(DateTools.convertString(new java.util.Date(),
+		 * "yyyy-MM-dd"));
+		 */
         
     }
 }

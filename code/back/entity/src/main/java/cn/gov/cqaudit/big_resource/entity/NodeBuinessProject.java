@@ -1,5 +1,7 @@
 package cn.gov.cqaudit.big_resource.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import cn.gov.cqaudit.tools.DateTools;
@@ -20,20 +22,20 @@ public class NodeBuinessProject extends Node{
 	}
 	String type;//业务类型，比如农商行贷款，重钢采购铁矿石，招标公司招标项目等
 	String seq;//项目编号，销售合同编号，贷款合同号等
-	java.util.Date datetime;//项目开始时间
+	LocalDateTime datetime;//项目开始时间
 
 	public String getType() {
 		return type;
 	}
-	public NodeBuinessProject(String id, String name, String type, String seq, Date datetime) {
+	public NodeBuinessProject(String id, String name, String type, String seq, LocalDateTime datetime) {
 		super(id, name);
 		this.type = type;
 		this.seq = seq;
 		this.datetime = datetime;
 	}
-	public NodeBuinessProject(String name, String type, String seq, Date datetime) {
+	public NodeBuinessProject(String name, String type, String seq, LocalDateTime datetime) {
 		super(StringTools.MD5EncodeUTF8(type)
-				+DateTools.convertString(datetime,"YYYY-MM-dd HH:mi:ss.SSS")
+				+DateTools.formatLocalDateTime(datetime,"yyyy-MM-dd HH:mm:ss.SSS")
 				+StringTools.MD5EncodeUTF8(seq), name);
 		this.type = type;
 		this.seq = seq;
@@ -48,10 +50,10 @@ public class NodeBuinessProject extends Node{
 	public void setSeq(String seq) {
 		this.seq = seq;
 	}
-	public java.util.Date getDatetime() {
+	public LocalDateTime getDatetime() {
 		return datetime;
 	}
-	public void setDatetime(java.util.Date datetime) {
+	public void setDatetime(LocalDateTime datetime) {
 		this.datetime = datetime;
 	}
 	

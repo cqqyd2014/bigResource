@@ -88,7 +88,7 @@ public class HbaseNodeImpl extends HbaseTableOperationAbs<Node> {
 	@Override
 	public boolean putManualBatch(Connection conn, List<Put> putList, int bufferSize) {
 		// TODO Auto-generated method stub
-		return putManualBatch(conn,tableName,putList,bufferSize);
+		return putManualBatch(conn,putList,bufferSize);
 	}
 
 	@Override
