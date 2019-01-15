@@ -47,6 +47,14 @@ project(':import_hbase_batch') {
     }
 }
 
+
+project(':hive_module') {
+    dependencies {
+        implementation project(':tools')
+
+    }
+}
+
 project(':import_hbase_db') {
     dependencies {
         implementation project(':import_hbase_module')
