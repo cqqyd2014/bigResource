@@ -12,10 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.*;
 
 
-
+import org.springframework.data.hadoop.hive.HiveTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.data.hadoop.hive.HiveClientFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 
@@ -31,11 +31,11 @@ public class TestApp {
 	 */
 	
 	@Autowired
-	HiveClientFactory hiveClientFactory;
+	HiveTemplate hiveTemplate;
      @Test
      public void testSome() {
     	 
-    	
+    	 hiveTemplate.query("show tables;");
     	
 		
 		

@@ -9,7 +9,11 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.hadoop.hive.HiveClientFactory;
+import org.springframework.data.hadoop.hive.HiveRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.hadoop.hive.HiveClientFactoryBean;
+import org.springframework.data.hadoop.hive.HiveTemplate;
 
 
 @Configuration
@@ -47,15 +51,19 @@ public class HiveConfig {
 		dataSource.setDriver(new org.apache.hive.jdbc.HiveDriver());
 		dataSource.setUrl(hive_url);
 
-
 		return dataSource;
 	}
-	@Bean(name = "hiveClientFactory")
-	public HiveClientFactory getHiveClientFactory(org.springframework.jdbc.datasource.SimpleDriverDataSource hiveDataSource) {
+	@Bean(name = "hiveClientFactoryBean")
+	public HiveClientFactoryBean getHiveClientFactoryBean(org.springframework.jdbc.datasource.SimpleDriverDataSource hiveDataSource) {
 		HiveClientFactoryBean hiveClientFactory = new HiveClientFactoryBean();
 		hiveClientFactory.setHiveDataSource(hiveDataSource);
-
-		return hiveClientFactory.getObject();
+		
+		return hiveClientFactory;
+	}
+	@Bean(name = "hiveClientFactory")
+	public HiveClientFactory getHiveClientFactory(HiveClientFactoryBean hiveClientFactoryBean) {
+		
+		return hiveClientFactoryBean.getObject();
 	}
 
 
@@ -65,6 +73,13 @@ public class HiveConfig {
 		hiveRunner.setHiveClientFactory(hiveClientFactory);
 
 		return hiveRunner;
+	}
+	@Bean(name="hiveTemplate")
+	public HiveTemplate getHiveTemplate(HiveClientFactory hiveClientFactory) {
+		HiveTemplate hiveTemplate=new HiveTemplate();
+		hiveTemplate.setHiveClientFactory(hiveClientFactory);
+		System.out.println("Template初始化完成");
+		return hiveTemplate;
 	}
 	
 
