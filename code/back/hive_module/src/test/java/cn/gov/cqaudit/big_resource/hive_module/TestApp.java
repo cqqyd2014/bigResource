@@ -12,11 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.*;
 
 
-import org.springframework.data.hadoop.hive.HiveTemplate;
+import cn.gov.cqaudit.big_resource.hive_module.jdbc.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.hadoop.hive.HiveClientFactory;
-import org.springframework.jdbc.core.JdbcTemplate;
+
 
 
 

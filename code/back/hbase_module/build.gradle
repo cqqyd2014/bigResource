@@ -1,0 +1,114 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+description='Hive基础模块'
+
+jar.enabled=true
+
+
+bootJar {
+	mainClassName = 'cn.gov.cqaudit.big_resource.hive_module.HiveModuleBoot'
+}
+
+dependencies {
+// https://mvnrepository.com/artifact/org.apache.hive/hive-service
+compile ('org.apache.hive:hive-service:1.2.2')
+{
+	exclude module: 'groovy-all'
+
+}
+// https://mvnrepository.com/artifact/org.apache.hive/hive-hbase-handler
+
+compile ('org.apache.hive:hive-hbase-handler:1.2.2')
+{
+	exclude module: 'groovy-all'
+
+}
+
+// https://mvnrepository.com/artifact/org.apache.hive/hive-jdbc
+
+
+// https://mvnrepository.com/artifact/org.apache.hive/hive-service-rpc
+/*
+compile ('org.apache.hive:hive-service-rpc:1.2.2')
+{
+	exclude module: 'groovy-all'
+
+}
+*/
+compile ('org.apache.hive:hive-jdbc:1.2.2')
+{
+	exclude module: 'groovy-all'
+
+}
+
+// https://mvnrepository.com/artifact/org.apache.hive/hive-common
+
+compile ('org.apache.hive:hive-common:1.2.2')
+{
+	exclude module: 'groovy-all'
+
+}
+
+
+
+// https://mvnrepository.com/artifact/org.apache.hive/hive-exec
+compile ('org.apache.hive:hive-exec:1.2.2')
+{
+	exclude module: 'groovy-all'
+
+}
+
+	implementation group: 'commons-io', name: 'commons-io', version: '2.+'
+implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.+'
+
+
+	//implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.+'
+	implementation group: 'org.json', name: 'json', version: '20180813'
+	implementation 'org.apache.hbase:hbase-client:2.+'
+	// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common
+	implementation group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.1.1'
+
+	// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs
+	implementation group: 'org.apache.hadoop', name: 'hadoop-hdfs', version: '3.1.1'
+
+
+	implementation group: 'org.springframework.data', name: 'spring-data-hadoop', version: '2.+'
+
+
+
+
+
+
+	implementation('org.springframework.boot:spring-boot-starter-jdbc')
+	{
+		exclude module: 'spring-boot-starter-logging'
+
+	}
+
+	
+	implementation('org.springframework.boot:spring-boot-starter')
+	{
+		exclude module: 'spring-boot-starter-logging'
+	}
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	{
+	exclude module: 'spring-boot-starter-logging'
+	}
+}

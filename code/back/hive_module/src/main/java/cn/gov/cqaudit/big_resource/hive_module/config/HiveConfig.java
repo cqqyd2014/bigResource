@@ -9,11 +9,12 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.hadoop.hive.HiveClientFactory;
-import org.springframework.data.hadoop.hive.HiveRunner;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.data.hadoop.hive.HiveClientFactoryBean;
-import org.springframework.data.hadoop.hive.HiveTemplate;
+import cn.gov.cqaudit.big_resource.hive_module.jdbc.*;
+import cn.gov.cqaudit.big_resource.hive_module.jdbc.datasource.*;
+
+
+
+
 
 
 @Configuration
