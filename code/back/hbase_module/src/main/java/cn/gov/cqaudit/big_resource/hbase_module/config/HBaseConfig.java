@@ -33,7 +33,7 @@ public class HBaseConfig {
 	public HBaseConfig() {
 		super();
 		// TODO Auto-generated constructor stub
-		System.out.println("初始化Hive Config");
+		System.out.println("初始化HBase Config");
 	}
 	/*
 	@Bean(name = "hive_datasource")
@@ -67,22 +67,14 @@ public class HBaseConfig {
 	}
 	
 
-	@Bean(name="hbaseTemplate")
-	public HbaseTemplate template(@Value("${hbase.put_batch_buffer_size}") String put_batch_buffer_size,
-			@Value("${hbase.scan_cache}") String scan_cache,
-			@Value("${hbase.scan_batch}") String scan_batch,Connection hbaseConnection) {
-		HbaseTemplate hbaseTemplate=new HbaseTemplate();
-		hbaseTemplate.setTableConn(hbaseConnection);
-		hbaseTemplate.setPut_batch_buffer_size(Long.parseLong(put_batch_buffer_size));
-		return hbaseTemplate;
-	}
+
 	
 
 	@Bean(name = "hbaseConnection")
 	public Connection conn(@Value("${hbase.batch_pool}") String batch_pool,org.apache.hadoop.conf.Configuration hadoopConfiguration) {
 		// org.apache.hadoop.conf.Configuration HbaseConfig =
 		// HBaseConfiguration.create();
-		System.out.println("初始化connection");
+		//System.out.println("初始化connection");
 		Connection connection = null;
 		try {
 			ExecutorService pool = Executors.newFixedThreadPool(Integer.valueOf(batch_pool));
@@ -92,11 +84,20 @@ public class HBaseConfig {
 			System.out.println("创建HBase数据库连接出错");
 			e.printStackTrace();
 		}
-		System.out.println("初始化connection成功");
+		System.out.println("初始化HBase数据库连接成功");
 
 		return connection;
 	}
-	
+	@Bean(name="hbaseTemplate")
+	public HbaseTemplate template(@Value("${hbase.put_batch_buffer_size}") String put_batch_buffer_size,
+			@Value("${hbase.scan_cache}") String scan_cache,
+			@Value("${hbase.scan_batch}") String scan_batch,Connection hbaseConnection) {
+		HbaseTemplate hbaseTemplate=new HbaseTemplate();
+		hbaseTemplate.setTableConn(hbaseConnection);
+		hbaseTemplate.setPut_batch_buffer_size(Long.parseLong(put_batch_buffer_size));
+		System.out.println("HbaseTemplate初始化成功");
+		return hbaseTemplate;
+	}
 
 
 }

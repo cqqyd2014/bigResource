@@ -17,29 +17,19 @@ apply plugin: 'java'
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
-description='Hive基础模块'
+description='HBase基础模块'
 
 jar.enabled=true
 
 
-bootJar {
-	mainClassName = 'cn.gov.cqaudit.big_resource.hive_module.HiveModuleBoot'
-}
+
 
 dependencies {
 // https://mvnrepository.com/artifact/org.apache.hive/hive-service
-compile ('org.apache.hive:hive-service:1.2.2')
-{
-	exclude module: 'groovy-all'
 
-}
 // https://mvnrepository.com/artifact/org.apache.hive/hive-hbase-handler
 
-compile ('org.apache.hive:hive-hbase-handler:1.2.2')
-{
-	exclude module: 'groovy-all'
 
-}
 
 // https://mvnrepository.com/artifact/org.apache.hive/hive-jdbc
 
@@ -52,28 +42,16 @@ compile ('org.apache.hive:hive-service-rpc:1.2.2')
 
 }
 */
-compile ('org.apache.hive:hive-jdbc:1.2.2')
-{
-	exclude module: 'groovy-all'
 
-}
 
 // https://mvnrepository.com/artifact/org.apache.hive/hive-common
 
-compile ('org.apache.hive:hive-common:1.2.2')
-{
-	exclude module: 'groovy-all'
 
-}
 
 
 
 // https://mvnrepository.com/artifact/org.apache.hive/hive-exec
-compile ('org.apache.hive:hive-exec:1.2.2')
-{
-	exclude module: 'groovy-all'
 
-}
 
 	implementation group: 'commons-io', name: 'commons-io', version: '2.+'
 implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.+'
@@ -89,18 +67,13 @@ implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.+'
 	implementation group: 'org.apache.hadoop', name: 'hadoop-hdfs', version: '3.1.1'
 
 
-	implementation group: 'org.springframework.data', name: 'spring-data-hadoop', version: '2.+'
 
 
 
 
+// https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.4.RELEASE'
 
-
-	implementation('org.springframework.boot:spring-boot-starter-jdbc')
-	{
-		exclude module: 'spring-boot-starter-logging'
-
-	}
 
 	
 	implementation('org.springframework.boot:spring-boot-starter')

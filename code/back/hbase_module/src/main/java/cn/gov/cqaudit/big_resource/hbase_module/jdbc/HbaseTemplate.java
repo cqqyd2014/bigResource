@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 import org.apache.hadoop.hbase.client.Table;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.annotation.PreDestroy;
@@ -198,10 +198,10 @@ public class HbaseTemplate extends HbaseAccessor implements HbaseOperations {
 
 	@Override
 	public void put(String tableName, final String rowName, final String familyName, final String qualifier, final byte[] value) {
-		Assert.hasLength(rowName);
-		Assert.hasLength(familyName);
-		Assert.hasLength(qualifier);
-		Assert.notNull(value);
+		Assert.hasLength(rowName,"put的rowName长度不能为0");
+		Assert.hasLength(familyName,"put的familyName长度不能为0");
+		Assert.hasLength(qualifier,"put的qualifier长度不能为0");
+		Assert.notNull(value,"put的值不能为空");
 		execute(tableName, new TableCallback<Object>() {
 			@Override
 			public Object doInTable(Table htable) throws Throwable {
@@ -219,8 +219,8 @@ public class HbaseTemplate extends HbaseAccessor implements HbaseOperations {
 	
 	@Override
 	public void delete(String tableName, final String rowName, final String familyName, final String qualifier) {
-		Assert.hasLength(rowName);
-		Assert.hasLength(familyName);
+		Assert.hasLength(rowName,"delete的rowName长度不能为0");
+		Assert.hasLength(familyName,"delete的familyName长度不能为0");
 		execute(tableName, new TableCallback<Object>() {
 			@Override
 			public Object doInTable(Table htable) throws Throwable {

@@ -11,8 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.*;
 
+import cn.gov.cqaudit.big_resource.hbase_module.jdbc.HbaseTemplate;
 
-import cn.gov.cqaudit.big_resource.hive_module.jdbc.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,7 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=HiveModuleBoot.class)
+@SpringBootTest(classes=HbaseBoot.class)
 public class TestApp {
 
 	/*
@@ -29,12 +30,12 @@ public class TestApp {
     private JdbcTemplate hiveJdbcTemplate;
 	 */
 
-	@Autowired
-	HiveTemplate hiveTemplate;
+	//@Autowired
+	//HbaseTemplate hbaseTemplate;
      @Test
      public void testSome() {
 
-    	 hiveTemplate.query("show tables;");
+    	 //hiveTemplate.query("show tables;");
 
 
 
