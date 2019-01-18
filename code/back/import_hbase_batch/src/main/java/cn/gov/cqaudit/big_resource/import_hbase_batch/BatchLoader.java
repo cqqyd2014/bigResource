@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.hbase.client.Connection;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class BatchLoader {
 	@Autowired
 	SourceLoader	sourceLoader;
 	
-	public BatchTemplate load(String sourceFileName) throws IOException {
+	public BatchTemplate load(String sourceFileName) throws IOException, JSONException {
 		String inputString = FileUtils.readFileToString(new File(sourceFileName), "UTF-8");
 		// 将读取的数据转换为JSONObject
 		JSONObject jsonObject = new JSONObject(inputString);

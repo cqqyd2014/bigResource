@@ -1,5 +1,6 @@
 package cn.gov.cqaudit.big_resource.hbase_module.jdbc;
 
+import org.apache.hadoop.hbase.client.BufferedMutator;
 import org.apache.hadoop.hbase.client.Table;
 
 public interface TableCallback<T> {
@@ -12,4 +13,5 @@ public interface TableCallback<T> {
 	 * @throws Throwable thrown by the Hbase API
 	 */
 	T doInTable(Table table) throws Throwable;
+	
 }

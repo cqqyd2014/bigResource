@@ -11,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,8 @@ import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTem
 import cn.gov.cqaudit.big_resource.import_hbase_module.template_loader.SourceLoader;
 import cn.gov.cqaudit.big_resource.import_hbase_module.template_loader.TargetLoader;
 import cn.gov.cqaudit.tools.DateTools;
+
+import cn.gov.cqaudit.big_resource.hbase_module.jdbc.*;
 
 @Component("dbImporter")
 @Scope("prototype")
@@ -147,15 +150,15 @@ public class DbImporter extends DataImportOperationAbs<ResultSet, ResultSet> {
 	}
 
 	@Override
-	public long do_import_hbase_batch(Connection hconn) {
+	public long do_import_hbase_batch(HbaseTemplate hbaseTemplate) {
 		try {
 			ResultSet resultset=getResultset();
 			System.out.println("开始导入数据");
 			java.time.LocalDateTime startTime=LocalDateTime.now();
 			while (resultset.next()) {
-				processOneRow(resultset, hconn);
+				processOneRow(resultset, hbaseTemplate);
 			}
-			afterProcessOneRow(hconn);
+			afterProcessOneRow(hbaseTemplate);
 			java.time.LocalDateTime endTime=LocalDateTime.now();
 			long seconds=DateTools.betweenTwoTime(startTime, endTime, ChronoUnit.SECONDS);
 			long count_per_seconds=rowCountAll/seconds;
@@ -168,13 +171,13 @@ public class DbImporter extends DataImportOperationAbs<ResultSet, ResultSet> {
 	}
 
 	@Override
-	public void readTartgetTemplate(String inputString) {
+	public void readTartgetTemplate(String inputString) throws JSONException {
 		// TODO Auto-generated method stub
 		targetTemplate=targetLoader.load(inputString);
 	}
 
 	@Override
-	public void readSourceTemplate(String sourceString) {
+	public void readSourceTemplate(String sourceString) throws JSONException {
 		// TODO Auto-generated method stub
 		sourceTemplate=sourceLoader.load(sourceString);
 		

@@ -13,10 +13,11 @@ import org.apache.hadoop.hbase.client.Put;
 
 import org.apache.hadoop.hbase.util.Bytes;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.gov.cqaudit.big_resource.dao.common.HbaseDaoCommon;
-
+import cn.gov.cqaudit.big_resource.hbase_module.jdbc.HbaseTemplate;
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTemplate;
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTemplateDetail;
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTemplateTypeEnum;
@@ -45,7 +46,7 @@ public abstract class DataImportOperationAbs<T, S> extends HbaseDaoCommon {
 	public abstract Put getPut(S record) throws Exception;
 
 	// Put对象放入puts，根据批处理的参数，进行批处理
-	public void processOneRow(S record, Connection hconn) throws Exception {
+	public void processOneRow(S record,HbaseTemplate hbaseTemplate) throws Exception {
 
 		rowCountAll++;
 		//System.out.println(templateName+"处理明细数据中"+rowCountAll);
@@ -66,7 +67,10 @@ public abstract class DataImportOperationAbs<T, S> extends HbaseDaoCommon {
 		if (rowCount == batchCount) {
 			// System.out.println("开始批处理插入");
 			// tablePuts(puts); // 数据量达到某个阈值时提交，不达到不提交
-			putManualBatch(hconn, Arrays.asList(puts));
+			//putManualBatch(hbaseTemplate, Arrays.asList(puts));
+			hbaseTemplate.put_batch(tName.getNameAsString(), Arrays.asList(puts));
+			
+			
 			// 处理完之后的操作
 			rowCount = 0;// 重置为0
 			// 清理数组
@@ -83,22 +87,23 @@ public abstract class DataImportOperationAbs<T, S> extends HbaseDaoCommon {
 	}
 
 	// 处理批量之后剩下的零星
-	public void afterProcessOneRow(Connection hconn) throws IOException {
+	public void afterProcessOneRow(HbaseTemplate hbaseTemplate) throws IOException {
 
 		// tablePuts(puts);
-		putManualBatch(hconn, getFragmentaryPuts());
+		//putManualBatch(hconn, getFragmentaryPuts());
+		hbaseTemplate.put_batch(tName.getNameAsString(), getFragmentaryPuts());
 		// puts.clear();
 		cleanArray();
 		System.out.println(templateName+"结束导入，一共导入数据" + (batchCount * batchDoCount + puts.length));
 	}
 
 	// 初始化环境
-	public void init(Connection hConn, String sourceFileName, String templateFileName, int batchCount)
-			throws IOException {
+	public void init( String sourceFileName, String templateFileName, int batchCount)
+			throws IOException,JSONException {
 
 		System.out.println("读取导入表模板");
 		readTargetTemplateFromFile( templateFileName);
-		afterReadTargetTemplate(hConn);
+		//afterReadTargetTemplate(hConn);
 		System.out.println("读取数据源");
 		readSourceTemplate(sourceFileName);
 		this.batchCount = batchCount;
@@ -112,13 +117,13 @@ public abstract class DataImportOperationAbs<T, S> extends HbaseDaoCommon {
 	}
 
 	// 初始化环境
-	public void init(Connection hConn, SourceTemplate sourceTemplate, TargetTemplate targetTemplate, int batchCount,String templateName) throws IOException {
+	public void init(SourceTemplate sourceTemplate, TargetTemplate targetTemplate, int batchCount,String templateName) throws IOException {
 		this.targetTemplate = targetTemplate;
 		this.sourceTemplate = sourceTemplate;
 		this.batchCount = batchCount;
 		puts = new Put[batchCount];
 		this.templateName=templateName;
-		afterReadTargetTemplate(hConn);
+		//afterReadTargetTemplate(hConn);
 		System.out.println("初始化成功");
 
 	}
@@ -134,21 +139,21 @@ public abstract class DataImportOperationAbs<T, S> extends HbaseDaoCommon {
 	 * @param batchCount 一次批量处理的数量
 	 * @return
 	 */
-	public abstract long do_import_hbase_batch(Connection hconn) throws Exception;
+	public abstract long do_import_hbase_batch(HbaseTemplate hbaseTemplate) throws Exception;
 
 	// 读取数据源参数
-	public void readSourceTemplateFromFile(String sourceFieName) throws IOException {
+	public void readSourceTemplateFromFile(String sourceFieName) throws IOException,JSONException {
 
 		
 		String sourceString = FileUtils.readFileToString(new File(sourceFieName), "UTF-8");
 		readSourceTemplate(sourceString);
 
 	}
-	public abstract void readSourceTemplate(String sourceString);
+	public abstract void readSourceTemplate(String sourceString) throws JSONException ;
 
-	public abstract void readTartgetTemplate(String inputString);
+	public abstract void readTartgetTemplate(String inputString)  throws JSONException ;
 	// 读取表的模板
-	public void readTargetTemplateFromFile(String fileName) throws IOException {
+	public void readTargetTemplateFromFile(String fileName) throws IOException,JSONException {
 
 		
 		
@@ -167,14 +172,16 @@ public abstract class DataImportOperationAbs<T, S> extends HbaseDaoCommon {
 	 * 读取导入模板之后，初始化Hbase批处理
 	 * 
 	 */
-	private void afterReadTargetTemplate(Connection hConn) throws IOException {
-		TableName tName = TableName.valueOf(targetTemplate.getTableName());
-		BufferedMutatorParams params = new BufferedMutatorParams(tName);
-		params.writeBufferSize(bufferSize * 1024 * 1024); // 可以自己设定阈值 5M 达到5M则提交一次
-
-		mutator = hConn.getBufferedMutator(params);
-
-	}
+	/*
+	 * private void afterReadTargetTemplate(Connection hConn) throws IOException {
+	 * TableName tName = TableName.valueOf(targetTemplate.getTableName());
+	 * BufferedMutatorParams params = new BufferedMutatorParams(tName);
+	 * params.writeBufferSize(bufferSize * 1024 * 1024); // 可以自己设定阈值 5M 达到5M则提交一次
+	 * 
+	 * mutator = hConn.getBufferedMutator(params);
+	 * 
+	 * }
+	 */
 
 	private void cleanArray() {
 		for (int i = 0; i < puts.length; i++) {

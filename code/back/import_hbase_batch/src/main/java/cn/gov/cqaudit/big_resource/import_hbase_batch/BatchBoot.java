@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import cn.gov.cqaudit.big_resource.hbase_module.jdbc.HbaseTemplate;
 import cn.gov.cqaudit.big_resource.import_hbase_batch.template.BatchTemplate;
 import cn.gov.cqaudit.big_resource.import_hbase_batch.template.BatchTemplateDetail;
 import cn.gov.cqaudit.big_resource.import_hbase_module.impl.CSVImporter;
@@ -21,7 +23,7 @@ public class BatchBoot implements CommandLineRunner {
 	@Autowired
 	BatchLoader batchLoader;
 	@Autowired
-	private Connection hConn;
+	private HbaseTemplate hbaseTemplate;
 	public static void main(String[] args) {
 		SpringApplication.run(BatchBoot.class, args);
 	}
@@ -56,17 +58,17 @@ public class BatchBoot implements CommandLineRunner {
     		long result = 0l;
     		switch (type) {
     		case CSV:
-    			cSVImporter.init(hConn, detail.getSourceTemplate(), detail.getTargetTemplate(), batchCount,
+    			cSVImporter.init(detail.getSourceTemplate(), detail.getTargetTemplate(), batchCount,
     					detail.getTemplate_name());
-    			result = cSVImporter.do_import_hbase_batch(hConn);
+    			result = cSVImporter.do_import_hbase_batch(hbaseTemplate);
     			break;
     		case Database:
     			//System.out.println(detail.getTargetTemplate());
     			//System.out.println(detail.getSourceTemplate());
     			//System.out.println("------");
-    			dbImporter.init(hConn, detail.getSourceTemplate(), detail.getTargetTemplate(), batchCount,
+    			dbImporter.init( detail.getSourceTemplate(), detail.getTargetTemplate(), batchCount,
     					detail.getTemplate_name());
-    			result = dbImporter.do_import_hbase_batch(hConn);
+    			result = dbImporter.do_import_hbase_batch(hbaseTemplate);
     			break;
     		default:
     			result = 0l;

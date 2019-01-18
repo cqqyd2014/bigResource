@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.gov.cqaudit.generate_data.TestGenerate" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-01-18T11:25:52" hostname="DESKTOP-LVH9DL5" time="0.535">
+  <properties/>
+  <testcase name="testOne" classname="cn.gov.cqaudit.generate_data.TestGenerate" time="0.535"/>
+  <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.1.RELEASE)
+
+ProvinceCity初始化成功
+430921
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

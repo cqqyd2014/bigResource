@@ -2,6 +2,7 @@ package cn.gov.cqaudit.big_resource.hbase_module.jdbc;
 
 import java.util.List;
 
+import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Scan;
 
 
@@ -19,6 +20,7 @@ public interface HbaseOperations {
 	 * @return the result object of the callback action, or null
 	 */
 	<T> T execute(String tableName, TableCallback<T> action);
+	<T> T execute_batch(String tableName, MutatorCallback<T> action);
 
 	/**
 	 * Scans the target table, using the given family. The content is processed by the given action typically
@@ -142,6 +144,13 @@ public interface HbaseOperations {
 	 * @param data the byte array of the data value to be put
 	 */
 	void put(String tableName, final String rowName, final String familyName, final String qualifier, final byte[] data);
+	
+	
+	
+	
+	
+	
+	void put_batch(String tableName,java.util.List<Put> puts);
 	
 	/**
 	 * Deletes a single qualifier in the given table and family. 

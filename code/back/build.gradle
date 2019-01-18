@@ -1,5 +1,6 @@
 allprojects {
     repositories {
+    //maven { url "http://192.168.88.17:8080/nexus-2.14.2-01/content/groups/public/" }
 		maven { url "http://repo.spring.io/libs-release" }
         jcenter()
         mavenCentral()
@@ -7,6 +8,7 @@ allprojects {
 
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
+  apply plugin: 'idea'
 	group = 'cn.gov.cqaudit.big_reource'
 	version = '0.0.1-SNAPSHOT'
 	sourceCompatibility = 1.8
@@ -28,13 +30,14 @@ project(':import_hbase_module') {
         implementation project(':dao')
         implementation project(':entity')
         implementation project(':tools')
+        implementation project(':hbase_module')
     }
 }
 project(':import_hbase_csv') {
     dependencies {
         implementation project(':import_hbase_module')
         implementation project(':dao')
-
+        implementation project(':hbase_module')
     }
 }
 
@@ -42,8 +45,9 @@ project(':import_hbase_csv') {
 project(':import_hbase_batch') {
     dependencies {
         implementation project(':import_hbase_module')
-		implementation project(':dao')
-		implementation project(':entity')
+        implementation project(':dao')
+        implementation project(':entity')
+        implementation project(':hbase_module')
     }
 }
 
@@ -58,7 +62,8 @@ project(':hive_module') {
 project(':import_hbase_db') {
     dependencies {
         implementation project(':import_hbase_module')
-		implementation project(':dao')
+        implementation project(':dao')
+        implementation project(':hbase_module')
     }
 }
 project(':dao') {

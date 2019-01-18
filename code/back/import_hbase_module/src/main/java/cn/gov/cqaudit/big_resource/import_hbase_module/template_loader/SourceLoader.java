@@ -1,5 +1,6 @@
 package cn.gov.cqaudit.big_resource.import_hbase_module.template_loader;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class SourceLoader {
 	@Autowired
 	SourceTemplate sourceTemplate;
 
-	public SourceTemplate load(String inputString) {
+	public SourceTemplate load(String inputString) throws JSONException {
 		
 		// 将读取的数据转换为JSONObject
 				JSONObject jsonObject = new JSONObject(inputString);

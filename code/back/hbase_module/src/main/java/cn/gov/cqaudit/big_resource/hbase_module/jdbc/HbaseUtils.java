@@ -7,6 +7,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.BufferedMutator;
 import org.apache.hadoop.hbase.client.Connection;
 import org.springframework.dao.DataAccessException;
 
@@ -79,6 +80,34 @@ public class HbaseUtils {
 	 */
 	public static void releaseTable(String tableName, Table table) {
 		releaseTable(tableName, table, null);
+	}
+	public static void releaseMutator(String tableName,BufferedMutator mutator) {
+		releaseMutator(tableName, mutator, null);
+		
+	}
+	public static void releaseMutator(String tableName, BufferedMutator mutator, Connection tableFactory) {
+		try {
+			doReleaseMutator(tableName, mutator, tableFactory);
+		} catch (IOException ex) {
+			throw HbaseUtils.convertHbaseException(ex);
+		}
+	}
+	private static void doReleaseMutator(String tableName, BufferedMutator mutator, Connection tableFactory)
+			throws IOException {
+		if (mutator == null) {
+			return;
+		}
+
+		// close only if its unbound 
+		if (!isBoundToThread(tableName)) {
+			if (tableFactory != null) {
+				//tableFactory.releaseHTableInterface(table);
+				mutator.close();
+			}
+			else {
+				//table.close();
+			}
+		}
 	}
 
 	/**

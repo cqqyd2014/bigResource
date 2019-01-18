@@ -12,12 +12,29 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.util.Assert;
 import org.apache.hadoop.hbase.client.Table;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.PreDestroy;
+
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.BufferedMutator;
+import org.apache.hadoop.hbase.client.BufferedMutatorParams;
 import org.apache.hadoop.hbase.client.Connection;
 
 public class HbaseTemplate extends HbaseAccessor implements HbaseOperations {
 
 	//private boolean autoFlush = true;
+	private long put_batch_buffer_size;
+
+	public long getPut_batch_buffer_size() {
+		return put_batch_buffer_size;
+	}
+
+	public void setPut_batch_buffer_size(long put_batch_buffer_size) {
+		this.put_batch_buffer_size = put_batch_buffer_size;
+	}
 
 	public HbaseTemplate() {
 	}
@@ -25,6 +42,19 @@ public class HbaseTemplate extends HbaseAccessor implements HbaseOperations {
 	public HbaseTemplate(Connection configuration) {
 		setTableConn(configuration);
 		afterPropertiesSet();
+	}
+	//关闭hbase链接
+	@PreDestroy
+	private void closeConnection() {
+		if (getTableConn()!=null) {
+			try {
+				getTableConn().close();
+				System.out.println("已经关闭HBase链接");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -58,6 +88,10 @@ public class HbaseTemplate extends HbaseAccessor implements HbaseOperations {
 
 	private void releaseTable(String tableName, Table table) {
 		HbaseUtils.releaseTable(tableName, table, getTableConn());
+	}
+	
+	private void releaseMutator(String tableName,BufferedMutator mutator) {
+		HbaseUtils.releaseMutator(tableName, mutator, getTableConn());
 	}
 
 	/*
@@ -204,7 +238,54 @@ public class HbaseTemplate extends HbaseAccessor implements HbaseOperations {
 				return null;
 			}
 		});
-	}	
+	}
+
+	@Override
+	public <T> T execute_batch(String tableName, MutatorCallback<T> action) {
+		// TODO Auto-generated method stub
+		Assert.notNull(action, "Callback object must not be null");
+		Assert.notNull(tableName, "No table specified");
+
+		//Table table = getTable(tableName);
+		TableName tName = TableName.valueOf(tableName);
+		BufferedMutatorParams params = new BufferedMutatorParams(tName);
+		params.writeBufferSize(put_batch_buffer_size * 1024 * 1024); // 可以自己设定阈值 5M 达到5M则提交一次
+
+		BufferedMutator mutator=null;
+		
+		try {
+			mutator= getTableConn().getBufferedMutator(params);
+			//boolean previousFlushSetting = applyFlushSetting(table);
+			T result = action.doInTable(mutator);
+			//flushIfNecessary(table, previousFlushSetting);
+			return result;
+		} catch (Throwable th) {
+			if (th instanceof Error) {
+				throw ((Error) th);
+			}
+			if (th instanceof RuntimeException) {
+				throw ((RuntimeException) th);
+			}
+			throw convertHbaseAccessException((Exception) th);
+		} finally {
+			releaseMutator(tableName, mutator);
+		}
+	}
+
+	@Override
+	public void put_batch(String tableName,List<Put> puts) {
+		// TODO Auto-generated method stub
+		execute_batch(tableName, new MutatorCallback<Object>() {
+			@Override
+			public Object doInTable(BufferedMutator mutator) throws Throwable {
+				
+				mutator.mutate(puts);
+				return null;
+			}
+		});
+	}
+
+
 
 	/**
 	 * Sets the auto flush.

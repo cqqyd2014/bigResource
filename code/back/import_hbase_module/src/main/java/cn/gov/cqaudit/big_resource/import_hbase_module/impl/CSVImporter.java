@@ -11,10 +11,12 @@ import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Put;
 
 import org.apache.hadoop.hbase.util.Bytes;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import cn.gov.cqaudit.big_resource.hbase_module.jdbc.HbaseTemplate;
 import cn.gov.cqaudit.big_resource.import_hbase_module.abs.DataImportOperationAbs;
 
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTemplateDetail;
@@ -35,6 +37,9 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 
 	@Autowired
 	SourceLoader sourceLoader;
+	
+	
+
 
 
 	@Override
@@ -104,25 +109,25 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 	}
 
 	@Override
-	public long do_import_hbase_batch(Connection hconn) throws Exception {
+	public long do_import_hbase_batch(HbaseTemplate hbaseTemplate) throws Exception {
 		CSVParser resultset=getResultset();
 		for (CSVRecord record : resultset) {
 			
-			processOneRow(record,hconn);
+			processOneRow(record,hbaseTemplate);
 			
 		}
-		afterProcessOneRow(hconn);
+		afterProcessOneRow(hbaseTemplate);
 		return rowCountAll;
 	}
 
 	@Override
-	public void readTartgetTemplate(String inputString) {
+	public void readTartgetTemplate(String inputString) throws JSONException {
 		// TODO Auto-generated method stub
 		targetTemplate=targetLoader.load(inputString);
 	}
 
 	@Override
-	public void readSourceTemplate(String sourceString) {
+	public void readSourceTemplate(String sourceString) throws JSONException  {
 		// TODO Auto-generated method stub
 		sourceTemplate=sourceLoader.load(sourceString);
 				

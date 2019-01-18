@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="D:/software/gradle-5.1.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/dao" />
+            <option value="$PROJECT_DIR$/entity" />
+            <option value="$PROJECT_DIR$/generate_data" />
+            <option value="$PROJECT_DIR$/hbase_module" />
+            <option value="$PROJECT_DIR$/hive_create_table" />
+            <option value="$PROJECT_DIR$/hive_module" />
+            <option value="$PROJECT_DIR$/import_hbase_batch" />
+            <option value="$PROJECT_DIR$/import_hbase_csv" />
+            <option value="$PROJECT_DIR$/import_hbase_db" />
+            <option value="$PROJECT_DIR$/import_hbase_module" />
+            <option value="$PROJECT_DIR$/tools" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

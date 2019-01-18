@@ -68,9 +68,12 @@ public class HBaseConfig {
 	
 
 	@Bean(name="hbaseTemplate")
-	public HbaseTemplate template(Connection hbaseConnection) {
+	public HbaseTemplate template(@Value("${hbase.put_batch_buffer_size}") String put_batch_buffer_size,
+			@Value("${hbase.scan_cache}") String scan_cache,
+			@Value("${hbase.scan_batch}") String scan_batch,Connection hbaseConnection) {
 		HbaseTemplate hbaseTemplate=new HbaseTemplate();
 		hbaseTemplate.setTableConn(hbaseConnection);
+		hbaseTemplate.setPut_batch_buffer_size(Long.parseLong(put_batch_buffer_size));
 		return hbaseTemplate;
 	}
 	
