@@ -41,6 +41,12 @@ public class HbaseTemplate extends HbaseAccessor implements HbaseOperations {
 
 	public HbaseTemplate(Connection configuration) {
 		setTableConn(configuration);
+		try {
+			setAdmin(configuration.getAdmin());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		afterPropertiesSet();
 	}
 	//关闭hbase链接
@@ -48,6 +54,7 @@ public class HbaseTemplate extends HbaseAccessor implements HbaseOperations {
 	private void closeConnection() {
 		if (getTableConn()!=null) {
 			try {
+				getAdmin().close();
 				getTableConn().close();
 				System.out.println("已经关闭HBase链接");
 			} catch (IOException e) {

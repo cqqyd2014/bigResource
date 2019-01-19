@@ -8,6 +8,7 @@
 		{
 			"tableName": "finance_bank_account_detail",
 			"rowKey":"id",
+			"overWrite":"false",
 			"rows": [
 			{
 				"colName": "account",
@@ -75,6 +76,7 @@
 		{
 			"tableName": "finance_bank_account_detail",
 			"rowKey":"id",
+			"overWrite":"false",
 			"rows": [
 			{
 				"colName": "account",

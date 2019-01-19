@@ -29,6 +29,8 @@ public class TargetLoader {
 
 				targetTemplate.setTableName(templateObject.getString("tableName"));
 				targetTemplate.setRowKey(templateObject.getString("rowKey"));
+				String overWrite=templateObject.getString("overWrite");
+				targetTemplate.setOverWrite(overWrite.equals("true")?true:false);
 				java.util.List<TargetTemplateDetail> rows = new java.util.ArrayList<TargetTemplateDetail>();
 				JSONArray rows_array = templateObject.getJSONArray("rows");
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TargetTemplate {
+	boolean overWrite;
 	String tableName;
 	public String getTableName() {
 		return tableName;
@@ -15,11 +16,19 @@ public class TargetTemplate {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TargetTemplate(String tableName, String rowKey, List<TargetTemplateDetail> details) {
+
+	public boolean isOverWrite() {
+		return overWrite;
+	}
+	public TargetTemplate(boolean overWrite, String tableName, String rowKey, List<TargetTemplateDetail> details) {
 		super();
+		this.overWrite = overWrite;
 		this.tableName = tableName;
 		this.rowKey = rowKey;
 		this.details = details;
+	}
+	public void setOverWrite(boolean overWrite) {
+		this.overWrite = overWrite;
 	}
 	public void setTableName(String tableName) {
 		this.tableName = tableName;

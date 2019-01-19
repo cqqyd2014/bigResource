@@ -3,6 +3,7 @@ package cn.gov.cqaudit.big_resource.hbase_module.jdbc;
 import java.nio.charset.Charset;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -12,6 +13,15 @@ public abstract class HbaseAccessor implements InitializingBean {
 	private Charset charset = HbaseUtils.getCharset(encoding);
 
 	private Connection tableConn;
+	public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
+
+	private Admin	admin;
 	//private Configuration configuration;
 
 	public Connection getTableConn() {

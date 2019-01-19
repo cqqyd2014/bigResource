@@ -110,6 +110,9 @@ public class CSVImporter extends DataImportOperationAbs<CSVParser, CSVRecord> {
 
 	@Override
 	public long do_import_hbase_batch(HbaseTemplate hbaseTemplate) throws Exception {
+		//检察表状态，是否有表。如没有表，新建表
+		
+		
 		CSVParser resultset=getResultset();
 		for (CSVRecord record : resultset) {
 			

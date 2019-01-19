@@ -31,6 +31,7 @@ project(':import_hbase_module') {
         implementation project(':entity')
         implementation project(':tools')
         implementation project(':hbase_module')
+        implementation project(':hive_module')
     }
 }
 project(':import_hbase_csv') {
@@ -38,6 +39,7 @@ project(':import_hbase_csv') {
         implementation project(':import_hbase_module')
         implementation project(':dao')
         implementation project(':hbase_module')
+        implementation project(':hive_module')
     }
 }
 
@@ -48,6 +50,7 @@ project(':import_hbase_batch') {
         implementation project(':dao')
         implementation project(':entity')
         implementation project(':hbase_module')
+        implementation project(':hive_module')
     }
 }
 
@@ -64,6 +67,7 @@ project(':import_hbase_db') {
         implementation project(':import_hbase_module')
         implementation project(':dao')
         implementation project(':hbase_module')
+        implementation project(':hive_module')
     }
 }
 project(':dao') {
