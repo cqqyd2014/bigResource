@@ -1,0 +1,10 @@
+{
+		"type":"Database",
+		"cvsFileName":"",
+		"jdbcDriver":"com.microsoft.jdbc.sqlserver.SQLServerDriver",
+		"jdbcUrl":"jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=tempdb",
+		"jdbcUserName":"sa",
+		"jdbcPassWord":"Wang1980",
+		"sql":"select * from table"
+	
+}

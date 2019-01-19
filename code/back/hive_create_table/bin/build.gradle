@@ -1,0 +1,45 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+description='Hive创建Hbase表'
+mainClassName = 'cn.gov.cqaudit.big_resource.hive_create_table.HiveCreateTableBoot'
+jar.enabled=true
+
+dependencies {
+
+	implementation group: 'commons-io', name: 'commons-io', version: '2.+'
+
+	implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.+'
+	implementation group: 'org.json', name: 'json', version: '20180813'
+	implementation 'org.apache.hbase:hbase-client:2.+'
+	// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common
+	implementation group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.1.1'
+
+	// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs
+	implementation group: 'org.apache.hadoop', name: 'hadoop-hdfs', version: '3.1.1'
+
+	implementation('org.springframework.boot:spring-boot-starter')
+	{
+		exclude module: 'spring-boot-starter-logging'
+	}
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	{
+	exclude module: 'spring-boot-starter-logging'
+	}
+}

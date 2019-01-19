@@ -1,0 +1,54 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'java-gradle-plugin'
+
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+processResources {
+    from('src/main/resources')
+
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+description='生成测试数据'
+jar.enabled=true
+dependencies {
+
+
+
+	implementation('org.springframework.boot:spring-boot-starter')
+	{
+		exclude module: 'spring-boot-starter-logging'
+	}
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	{
+		exclude module: 'spring-boot-starter-logging'
+	}
+}
+
+publishing {
+    repositories {
+        maven {
+            url "http://192.168.88.17:8080/nexus-2.14.2-01/content/repositories/cqqyd-snapshots/"
+            credentials {
+                username 'admin'
+                password 'Wang1980'
+            }
+        }
+    }
+}

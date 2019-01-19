@@ -8,8 +8,10 @@ import java.util.concurrent.Executors;
 import javax.sql.DataSource;
 
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -66,7 +68,7 @@ public class HBaseConfig {
 		return HbaseConfig;
 	}
 	
-
+	
 
 	
 
