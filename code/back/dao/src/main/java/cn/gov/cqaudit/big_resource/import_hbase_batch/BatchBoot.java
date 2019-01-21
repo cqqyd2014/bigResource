@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import cn.gov.cqaudit.big_resource.hbase_module.jdbc.HbaseTemplate;
 import cn.gov.cqaudit.big_resource.import_hbase_batch.template.BatchTemplate;
 import cn.gov.cqaudit.big_resource.import_hbase_batch.template.BatchTemplateDetail;
-import cn.gov.cqaudit.big_resource.import_hbase_module.abs.DataImportOperationAbs;
+
 import cn.gov.cqaudit.big_resource.import_hbase_module.impl.CSVImporter;
 import cn.gov.cqaudit.big_resource.import_hbase_module.impl.DbImporter;
 import cn.gov.cqaudit.big_resource.import_hbase_module.source_template.SourceTemplateTypeEnum;
@@ -66,7 +66,7 @@ public class BatchBoot implements CommandLineRunner {
 				//如果有记录，那么这个表多次出现，之前的记录和当前的记录的overwirte都必须为false
 				boolean before_flag=check_map.get(tableName);
 				
-				if (before_flag||) {
+				if (before_flag||current_flag) {
 					throw new Exception(tableName+"表，多次出现在在批量导入中，但是OVERWRITE为TRUE");
 				}
 			}

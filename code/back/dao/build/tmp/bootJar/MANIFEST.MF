@@ -1,4 +1,2 @@
 Manifest-Version: 1.0
-Start-Class: cn.gov.cqaudit.big_resource.import_hbase_batch.BatchBoot
-Main-Class: org.springframework.boot.loader.JarLauncher
 

@@ -46,7 +46,7 @@ public class TestApp {
      public void testSome() {
 		
     	 try {
-			BatchTemplate batchTemplate= batchLoader.load("d:/source.json");
+			BatchTemplate batchTemplate= batchLoader.loadFromSourceFile("d:/source.json");
 			TargetTemplate targetTemplate=batchTemplate.getDetails().get(1).getTargetTemplate();
 			hbaseTemplate.createTableWithRegions(targetTemplate.getTableName(), "cf1", "0", "9", 10);
 			hiveTemplate.createHiveOuterTableIntegrationHBase(targetTemplate);

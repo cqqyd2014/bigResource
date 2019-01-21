@@ -158,14 +158,14 @@ public abstract class DataImportOperationAbs<T, S> extends HbaseDaoCommon {
 			}
 			
 			//hbase创建表
-			hbaseTemplate.createTableWithRegions(targetTemplate.getTableName(), "cf1", "0", "9", 10);
+			hbaseTemplate.createTableWithRegions(targetTemplate.getTableName(), "cf1", "0", "f", 16);
 			hiveTemplate.createHiveOuterTableIntegrationHBase(targetTemplate);
 			
 		}
 		else {
 			//非覆盖模式为追加记录，需要hbase表存在,如没有表，新建表,hive重建映射
 			if (!hbaseTemplate.tableExists(targetTemplate.getTableName())) {
-				hbaseTemplate.createTableWithRegions(targetTemplate.getTableName(), "cf1", "0", "9", 10);
+				hbaseTemplate.createTableWithRegions(targetTemplate.getTableName(), "cf1", "0", "f", 16);
 			}
 			if (hiveTemplate.tableExists(targetTemplate.getTableName())) {
 				hiveTemplate.deleteTable(targetTemplate.getTableName());
