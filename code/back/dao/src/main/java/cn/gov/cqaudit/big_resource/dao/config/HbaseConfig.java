@@ -44,36 +44,31 @@ public class HbaseConfig {
 	 * hbaseTemplate.setConfiguration(conf); hbaseTemplate.setAutoFlush(true);
 	 * System.out.println("初始化template结束"); return hbaseTemplate; }
 	 */
-	@Bean(name = "hConfig")
-	public org.apache.hadoop.conf.Configuration hConfig(@Value("${hbase.zookeeper.quorum}") String quorum,
-			@Value("${hbase.zookeeper.port}") String port, @Value("${hbase.rootdir}") String fs,
-			@Value("${hbase.zookeeper.znode}") String znode) {
-		org.apache.hadoop.conf.Configuration HbaseConfig = HBaseConfiguration.create();
-		HbaseConfig.set("hbase.zookeeper.quorum", quorum);
-		HbaseConfig.set("hbase.zookeeper.port", port);
-		HbaseConfig.set("hbase.zookeeper.znode", znode);
-		HbaseConfig.set("hbase.rootdir", fs);
-		return HbaseConfig;
-	}
-
-	@Bean(name = "hConn")
-	public Connection conn(@Value("${hbase.batch_pool}") String batch_pool,org.apache.hadoop.conf.Configuration hConfig) {
-		// org.apache.hadoop.conf.Configuration HbaseConfig =
-		// HBaseConfiguration.create();
-		System.out.println("初始化connection");
-		Connection connection = null;
-		try {
-			ExecutorService pool = Executors.newFixedThreadPool(Integer.valueOf(batch_pool));
-			connection = ConnectionFactory.createConnection(hConfig,pool);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("创建HBase数据库连接出错");
-			e.printStackTrace();
-		}
-		System.out.println("初始化connection成功");
-		return connection;
-	}
-	@Bean(name = "mConfig")
+	/*
+	 * @Bean(name = "hConfig") public org.apache.hadoop.conf.Configuration
+	 * hConfig(@Value("${hbase.zookeeper.quorum}") String quorum,
+	 * 
+	 * @Value("${hbase.zookeeper.port}") String port, @Value("${hbase.rootdir}")
+	 * String fs,
+	 * 
+	 * @Value("${hbase.zookeeper.znode}") String znode) {
+	 * org.apache.hadoop.conf.Configuration HbaseConfig =
+	 * HBaseConfiguration.create(); HbaseConfig.set("hbase.zookeeper.quorum",
+	 * quorum); HbaseConfig.set("hbase.zookeeper.port", port);
+	 * HbaseConfig.set("hbase.zookeeper.znode", znode);
+	 * HbaseConfig.set("hbase.rootdir", fs); return HbaseConfig; }
+	 * 
+	 * @Bean(name = "hConn") public Connection conn(@Value("${hbase.batch_pool}")
+	 * String batch_pool,org.apache.hadoop.conf.Configuration hConfig) { //
+	 * org.apache.hadoop.conf.Configuration HbaseConfig = //
+	 * HBaseConfiguration.create(); System.out.println("初始化connection"); Connection
+	 * connection = null; try { ExecutorService pool =
+	 * Executors.newFixedThreadPool(Integer.valueOf(batch_pool)); connection =
+	 * ConnectionFactory.createConnection(hConfig,pool); } catch (IOException e) {
+	 * // TODO Auto-generated catch block System.out.println("创建HBase数据库连接出错");
+	 * e.printStackTrace(); } System.out.println("初始化connection成功"); return
+	 * connection; }
+	 */	@Bean(name = "mConfig")
 	public ManualConfig mConfig(@Value("${hbase.put_batch_buffer_size}") String put_batch_buffer_size,
 			@Value("${hbase.scan_cache}") String scan_cache,
 			@Value("${hbase.scan_batch}") String scan_batch) {

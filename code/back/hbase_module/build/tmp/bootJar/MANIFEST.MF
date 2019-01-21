@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Start-Class: cn.gov.cqaudit.big_resource.hive_module.HiveModuleBoot
-Main-Class: org.springframework.boot.loader.JarLauncher
-
