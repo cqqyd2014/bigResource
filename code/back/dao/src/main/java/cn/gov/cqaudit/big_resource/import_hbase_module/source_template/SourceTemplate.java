@@ -1,8 +1,10 @@
 package cn.gov.cqaudit.big_resource.import_hbase_module.source_template;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("prototype")
 public class SourceTemplate {
 	
 	String jdbcUserName;

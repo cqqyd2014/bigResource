@@ -14,7 +14,8 @@ public class DaoBoot implements CommandLineRunner {
 
 	}
 
-	public static void main(String[] args) {
-		SpringApplication.run(DaoBoot.class, args);
-	}
+	/*
+	 * public static void main(String[] args) { SpringApplication.run(DaoBoot.class,
+	 * args); }
+	 */
 }

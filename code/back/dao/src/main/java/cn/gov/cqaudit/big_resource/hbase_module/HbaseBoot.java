@@ -13,9 +13,10 @@ public class HbaseBoot implements CommandLineRunner {
 
 	
 
-    public static void main(String[] args) {
-        SpringApplication.run(HbaseBoot.class, args);
-    }
+	/*
+	 * public static void main(String[] args) {
+	 * SpringApplication.run(HbaseBoot.class, args); }
+	 */
 
     @Override
     public void run(String... args) throws Exception {

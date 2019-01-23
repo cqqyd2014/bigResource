@@ -116,7 +116,7 @@ WITH SERDEPROPERTIES (
 	 * 
 	 */
 	public boolean tableExists(String tableName) {
-		return query("SHOW TABLES "+tableName).size()>0;
+		return query("SHOW TABLES \'"+tableName+"\'").size()>0;
 	}
 
 	/**

@@ -6,6 +6,11 @@ import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTem
 import cn.gov.cqaudit.big_resource.import_hbase_module.source_template.SourceTemplate;
 
 public class BatchTemplateDetail {
+	@Override
+	public String toString() {
+		return "BatchTemplateDetail [template_name=" + template_name + ", targetTemplate=" + targetTemplate
+				+ ", sourceTemplate=" + sourceTemplate + "]";
+	}
 	String template_name;
 	public String getTemplate_name() {
 		return template_name;

@@ -66,14 +66,14 @@
 			{
 				"colName": "bank_name",
 				"type":"STRING"
-			},
+			}
 		    ]
 		},
 		"source_template":{
 			"type":"Database",
 			"cvsFileName":"d:/1.txt",
 			"jdbcDriver":"com.microsoft.sqlserver.jdbc.SQLServerDriver",
-			"jdbcUrl":"jdbc:sqlserver://localhost:1433;DatabaseName=sbdet",
+			"jdbcUrl":"jdbc:sqlserver://10.188.83.231:1433;DatabaseName=sbdet",
 			"jdbcUserName":"sa",
 			"jdbcPassWord":"Wang1980",
 			"sql":"SELECT  [客户号] khbh,[客户名称] khmc,[组织机构代码] zzjgdm,[客户简名] lxrmc,[电话号码] bgdh,[行业代码] hydm ,[执照号码] id,[注册资金] zczjje,[执照注册地址] zcdz,[法人代表名称] fddbrxm,[E_MAIL地址] dzyjdz,[开户机构代号] khjgbm,convert(date,[开户日期],120) khrq,[银行名称] bank_name FROM [sbdet].[dbo].[基础表_客户信息_对公客户扩展信息表] where len(执照号码)=18"
@@ -113,7 +113,7 @@
 			{
 				"colName": "bank_name",
 				"type":"STRING"
-			},
+			}
 			
 		    ]
 		},
@@ -122,7 +122,7 @@
 			"type":"Database",
 			"cvsFileName":"",
 			"jdbcDriver":"com.microsoft.sqlserver.jdbc.SQLServerDriver",
-			"jdbcUrl":"jdbc:sqlserver://localhost:1433;DatabaseName=sbdet",
+			"jdbcUrl":"jdbc:sqlserver://10.188.83.231:1433;DatabaseName=sbdet",
 			"jdbcUserName":"sa",
 			"jdbcPassWord":"Wang1980",
 			"sql":"SELECT  t1.[客户号] khbh,substring(sys.fn_sqlvarbasetostr(HashBytes('MD5',sbdet.dbo.[str_trim](t2.[证件号码]))),3,32) id,t2.客户名称 khmc,t2.[证件号码] zjhm,convert(date,substring(t2.[证件号码],7,8),120) csrq      ,[家庭电话号码] lxdh      ,[家庭地址] jtdz      ,t2.开户机构 khjgbh      ,t1.[银行名称] bank_name  FROM [sbdet].[dbo].[基础表_客户信息_对私客户扩展信息表] t1,[sbdet].[dbo].[基础表_客户信息_对私客户基本信息表] t2  where t1.客户号=t2.客户号 and len(t2.[证件号码])=18 and isdate(substring(t2.[证件号码],7,8))=1"

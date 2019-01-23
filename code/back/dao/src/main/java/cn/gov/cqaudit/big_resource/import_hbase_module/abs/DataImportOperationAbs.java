@@ -149,11 +149,17 @@ public abstract class DataImportOperationAbs<T, S> extends HbaseDaoCommon {
 
 	public long do_import_hbase_batch(HbaseTemplate hbaseTemplate,HiveTemplate hiveTemplate) throws Exception {
 		//检查表状态，如果为覆盖模式，在hive和hbase中都删除该表，再创建从hive到hbase的表
+		//System.out.println("表"+targetTemplate.getTableName()+"状态是"+targetTemplate.isOverWrite());
+		logger.info("表"+targetTemplate.getTableName()+"状态是"+targetTemplate.isOverWrite());
 		if (targetTemplate.isOverWrite()) {
+			System.out.println("表"+targetTemplate.getTableName()+"存在状态是"+hiveTemplate.tableExists(targetTemplate.getTableName()));
 			if (hiveTemplate.tableExists(targetTemplate.getTableName())) {
+				
+				logger.info("hive中存在表"+targetTemplate.getTableName()+"需要删除");
 				hiveTemplate.deleteTable(targetTemplate.getTableName());
 			}
 			if (hbaseTemplate.tableExists(targetTemplate.getTableName())) {
+				logger.info("hbase中存在表"+targetTemplate.getTableName()+"需要删除");
 				hbaseTemplate.deleteTable(targetTemplate.getTableName());
 			}
 			

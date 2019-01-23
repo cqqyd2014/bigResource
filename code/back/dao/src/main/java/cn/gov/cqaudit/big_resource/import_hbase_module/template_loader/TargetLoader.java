@@ -3,6 +3,11 @@ package cn.gov.cqaudit.big_resource.import_hbase_module.template_loader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +16,14 @@ import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTem
 import cn.gov.cqaudit.big_resource.import_hbase_module.import_template.TargetTemplateTypeEnum;
 
 @Component
-public class TargetLoader {
+public class TargetLoader implements BeanFactoryAware{
 	
-	@Autowired
-	TargetTemplate targetTemplate;
+	protected static final Logger logger = LoggerFactory.getLogger(TargetLoader.class);
+	
 
 	public TargetTemplate load(String inputString) throws JSONException {
+		//TargetTemplate targetTemplate=new TargetTemplate();
+		TargetTemplate targetTemplate= (TargetTemplate)factory.getBean("targetTemplate");
 		//System.out.println(inputString);
 		// 将读取的数据转换为JSONObject
 				JSONObject templateObject = new JSONObject(inputString);
@@ -60,5 +67,12 @@ public class TargetLoader {
 				}
 				targetTemplate.setDetails(rows);
 				return targetTemplate;
+	}
+	private BeanFactory factory;
+	@Override
+	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+		// TODO Auto-generated method stub
+		factory = beanFactory;
+		
 	}
 }

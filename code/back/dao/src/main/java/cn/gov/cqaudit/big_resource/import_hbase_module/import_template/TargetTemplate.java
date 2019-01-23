@@ -2,13 +2,20 @@ package cn.gov.cqaudit.big_resource.import_hbase_module.import_template;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Scope("prototype")
 public class TargetTemplate {
 	boolean overWrite;
 	String tableName;
+	@Override
+	public String toString() {
+		return "TargetTemplate [overWrite=" + overWrite + ", tableName=" + tableName + ", rowKey=" + rowKey
+				+ ", details=" + details + "]";
+	}
 	public String getTableName() {
 		return tableName;
 	}
