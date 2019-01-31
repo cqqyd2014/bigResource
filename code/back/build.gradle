@@ -25,6 +25,12 @@ project(':generate_data') {
         implementation project(':tools')
     }
 }
+project(':gather_info') {
+    dependencies {
+        implementation project(':dao')
+       
+    }
+}
 project(':dao') {
     dependencies {
         implementation project(':entity')
