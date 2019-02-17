@@ -3,3 +3,4 @@
 *.bin
 *.zip
 *.tar
+/code/front/gather_info/node_modules
