@@ -13,13 +13,13 @@ var math = {
 
         var s = '';
 
-        for (var i = 0; i < fraction.length; i++) {
+        for (let i = 0; i < fraction.length; i++) {
             s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
         }
         s = s || '整';
         n = Math.floor(n);
 
-        for (var i = 0; i < unit[0].length && n > 0; i++) {
+        for (let i = 0; i < unit[0].length && n > 0; i++) {
             var p = '';
             for (var j = 0; j < unit[1].length && n > 0; j++) {
                 p = digit[n % 10] + unit[1][j] + p;
@@ -43,7 +43,7 @@ var math = {
             s = 0 - s;
         if (/[^0-9\.]/.test(s))
             return "0.00";
-        if (s == null || s == "null" || s == "")
+        if (s === null || s === "null" || s === "")
             return "0.00";
         if (type > 0)
             s = new Number(s).toFixed(type);
@@ -54,9 +54,9 @@ var math = {
         while (re.test(s))
             s = s.replace(re, "$1,$2");
         s = s.replace(/,(\d\d)$/, ".$1");
-        if (type == 0) {
+        if (type === 0) {
             var a = s.split(".");
-            if (a[1] == "00") {
+            if (a[1] === "00") {
                 s = a[0];
             }
         }

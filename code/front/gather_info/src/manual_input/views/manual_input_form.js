@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import * as Actions from '../redux/actions';
 import {Form,Row,Col,Button,FormGroup,Label,Input} from 'reactstrap';
 import math from '../../func/math';
+import system_info from '../../func/system_info';
+import database from '../../func/database';
+import axios from 'axios';
 
 class ManualInputForm extends Component {
   constructor(props) {
@@ -14,7 +17,8 @@ class ManualInputForm extends Component {
         invest_amount:0,
         invest_amount_big:'',
         invest_amount_thousand:0,
-        invest_money_type:'RMB'
+        invest_money_type:'RMB',
+        invest_money_types:[]
       };
 
   }
@@ -44,6 +48,24 @@ class ManualInputForm extends Component {
     });
     
   }
+  componentDidMount=()=>{
+    //console.log(system_info.restful_api_base_url());
+    /* axios_ajax.get(system_info.restful_api_base_url(),'api/baseparameter/money_type',{},this,(a,b)=>{
+      console.log(a);
+      console.log(b);
+    }); */
+    axios.get(system_info.restful_api_base_url()+'api/baseparameter/money_type')
+  .then((response)=> {
+    let data=database.baseparameter(response);
+    //console.log(data);
+    this.setState({invest_money_types:data});
+
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  }
   
   render() {
     return (
@@ -52,7 +74,7 @@ class ManualInputForm extends Component {
           <Col md={4} >
             <FormGroup>
               <Label for="comUSCC" >统一社会信用代码</Label>
-              <Input id="comUSCC" value={this.state.comUSCC} type="text" onChange={this.handleComUSCCChange} type="text" placeholder="输入单位的统一社会信用代码" />
+              <Input id="comUSCC" value={this.state.comUSCC} type="text" onChange={this.handleComUSCCChange} placeholder="输入单位的统一社会信用代码" />
             </FormGroup>
           </Col>
           <Col md={4} >
@@ -88,11 +110,11 @@ class ManualInputForm extends Component {
             <FormGroup>
               <Label for="investMoneyType">币种</Label>
               <Input type="select" name="investMoneyType" id="investMoneyType">
-                <option>人民币</option>
-                <option>美元</option>
-                <option>英镑</option>
-                <option>日元</option>
-                <option>加拿大元</option>
+              {
+                this.state.invest_money_types.map(function(item,key,ary) {
+                  return (<option key={item.key} value={item.key}>{item.value}</option>);
+                })
+              }
               </Input>
             </FormGroup>
           </Col>
@@ -119,7 +141,7 @@ class ManualInputForm extends Component {
           
         </Row>
         <Row form>
-          <Button onClick={this.handelSubmit}>确认添加</Button>
+          <Button color="primary" onClick={this.handelSubmit}>确认添加</Button>
         </Row>
       </Form>
     );

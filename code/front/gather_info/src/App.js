@@ -1,15 +1,15 @@
 "user stirct"
 import React,{Component} from 'react';
-import {view} from './manual_input';
+import {view} from './dynamicForm';
 
-const ManualInput=view;
+const DynamicForm=view;
 
 class App extends Component {
   
   render() {
     return (
       <div>
-        <ManualInput/>
+        <DynamicForm/>
         
       </div>
     );

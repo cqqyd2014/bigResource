@@ -27,7 +27,7 @@ project(':generate_data') {
 }
 project(':gather_info') {
     dependencies {
-        implementation project(':dao')
+        //implementation project(':dao')
        
     }
 }
