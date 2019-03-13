@@ -1,12 +1,18 @@
 package cn.gov.cqaudit.big_resource.gather_info.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class BaseParameter {
+public class BaseParameter   implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1988272583436159276L;
 	@EmbeddedId
 	private BaseParameterPK pk;
 	public BaseParameterPK getPk() {

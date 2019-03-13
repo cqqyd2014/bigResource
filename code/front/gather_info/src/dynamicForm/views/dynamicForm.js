@@ -1,20 +1,22 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import * as Actions from '../redux/actions';
-import {Form,Row,Col,Button,FormGroup,Label,Input} from 'reactstrap';
-import math from '../../func/math';
+//import * as Actions from '../redux/actions';
+import {Form,Row,Button} from 'reactstrap';
+/* import math from '../../func/math';
 import axios_ajax from '../../func/axios_ajax';
 import system_info from '../../func/system_info';
 import database from '../../func/database';
-import axios from 'axios';
+import axios from 'axios'; */
 import DynamicCol from './dynamicCol';
+
 
 class DynamicForm extends Component {
   constructor(props) {
     super(props);
     this.state={
         title:'',
+        desc:'',
         form_value:{},
         cols:[
             {
@@ -23,8 +25,9 @@ class DynamicForm extends Component {
                 input_type:'text',
                 placeholder:'填写姓名',
                 group_tag:'div',//fieldset,
-                col_length:4
-            },/* 
+                col_length:4,
+                default_value:''
+            }, 
             {
               id:'sex',
               label:'性别',
@@ -33,6 +36,8 @@ class DynamicForm extends Component {
               group_tag:'fieldset',
               //fieldset,
               col_length:4,
+              default_value:'man',
+              manual:true,
               //legend:'选择性别',
               items:[
                 {
@@ -52,7 +57,9 @@ class DynamicForm extends Component {
               input_type:'checkbox',
               placeholder:'勾选爱好',
               group_tag:'fieldset',
+              default_value:[],
               //legend:'勾选爱好',
+              manual:true,
               items:[
                 {
                   text:'足球',
@@ -81,7 +88,9 @@ class DynamicForm extends Component {
                   value:'run'
                 }
               ],//fieldset,
-              col_length:4
+              col_length:4,
+              default_value:[],
+              manual:true,
 
             },
             {
@@ -90,43 +99,65 @@ class DynamicForm extends Component {
               input_type:'select',
               group_tag:'div',
               multiple:false,
+              manual:true,
               items:[
                 {
                   text:'足球',
-                  value:'footbal'
+                  value:'football'
                 },
                 {
                   text:'跑步',
                   value:'run'
                 }
               ],//fieldset,
-              col_length:4
+              col_length:4,
+              default_value:'football'
 
-            } *//* ,
+            }  ,
             {
               id:'password',
               label:'密码',
               input_type:'password',
-              group_tag:'div'
+              group_tag:'div',
+              default_value:'',//fieldset,
+              col_length:4,
             },
             {
               id:'email',
               label:'电子邮件',
               input_type:'email',
-              group_tag:'div'
+              group_tag:'div',
+              default_value:'',//fieldset,
+              col_length:4,
             },
             {
               id:'date',
               label:'日期',
               input_type:'date',
-              group_tag:'div'
+              group_tag:'div',
+              default_value:'',//fieldset,
+              col_length:4,
             },
             {
               id:"datetime",
               label:'日期时间',
               input_type:'time',
-              group_tag:'div'
-            } */
+              group_tag:'div',
+              default_value:'',//fieldset,
+              col_length:4,
+            } ,
+            {
+              id:"money_type",
+              label:'货币类型',
+              input_type:'select',
+              group_tag:'div',
+              default_value:'',//fieldset,
+              col_length:4,
+              multiple:false,
+              manual:false,
+              data_url:'api/baseparameter/money_type',
+              items:[]
+            } 
             
         ]
       };

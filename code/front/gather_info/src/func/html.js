@@ -2,13 +2,13 @@ import React from 'react';
 
 var html = {
 
-    select(_array){
+    select_potion(_array){
         
         
         
         _array.map(function(item,key,ary) {
-            return (<option key={item.key} value={item.key}>
-            {item.value}
+            return (<option key={key} value={item.alue}>
+            {item.text}
           </option>);
             
             

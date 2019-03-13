@@ -6,6 +6,10 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class BaseParameterPK implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3741659820079053681L;
 	private String ptype;
 	private String pcode;
 	public BaseParameterPK() {
